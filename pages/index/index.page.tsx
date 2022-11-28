@@ -24,7 +24,7 @@ const Page = () => {
               Start Demo &rarr;
             </button>
             <a
-              href="https://github.com/ndyhrdy/xendit-checkout-demo"
+              href="https://github.com/ndyhrdy/sturdy-parakeet"
               className="flex items-center rounded-lg border-2 border-teal-600 hover:bg-teal-600 transition-colors text-teal-500 hover:text-white h-12 px-6 text-lg"
             >
               Explore Code
