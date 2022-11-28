@@ -1,8 +1,29 @@
-import React from "react";
+import moment from "moment";
+import React, { useCallback, useState } from "react";
+import { pb } from "../../helpers/pocketbase";
 
 export { Page };
 
 const Page = () => {
+  const [busy, setBusy] = useState(false);
+  const handleStart = useCallback(async () => {
+    if (busy) {
+      return;
+    }
+    setBusy(true);
+    try {
+      const orderData = {
+        amount: 500_000,
+        expiry: moment().add(1, "day").toISOString(),
+      };
+
+      const order = await pb.collection("orders").create(orderData);
+      window.location.href = `/pay/${order.id}`;
+    } catch (error) {
+      setBusy(false);
+    }
+  }, [busy]);
+
   return (
     <>
       <div className="container mx-auto px-4 max-w-screen-md border-l border-r border-dashed dark:border-stone-800 dark:bg-stone-900">
@@ -14,12 +35,18 @@ const Page = () => {
           <p className="dark:text-stone-200 text-lg text-center mb-6">
             This is a checkout flow using Xendit to demonstrate usage of React
             on Vite with SSR. Complete stack includes Vite, React,
-            vite-plugin-ssr, Tailwind CSS, Framer Motion.
+            vite-plugin-ssr, Pocketbase, Tailwind CSS, Framer Motion.
           </p>
           <div className="flex space-x-2">
             <button
               type="button"
-              className="rounded-lg bg-teal-500 hover:bg-teal-600 transition-colors text-white h-12 px-6 text-lg"
+              onClick={handleStart}
+              disabled={busy}
+              className={`rounded-lg text-white h-12 px-6 text-lg ${
+                busy
+                  ? "bg-stone-500 cursor-not-allowed"
+                  : "transition-colors bg-teal-500 hover:bg-teal-600"
+              }`}
             >
               Start Demo &rarr;
             </button>
