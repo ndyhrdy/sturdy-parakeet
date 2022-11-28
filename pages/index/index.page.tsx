@@ -1,10 +1,10 @@
 import moment from "moment";
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { pb } from "../../helpers/pocketbase";
 
 export { Page };
 
-const Page = () => {
+const Page: FC = () => {
   const [busy, setBusy] = useState(false);
   const handleStart = useCallback(async () => {
     if (busy) {
