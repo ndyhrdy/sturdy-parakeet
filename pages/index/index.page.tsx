@@ -2,7 +2,7 @@ import moment from "moment";
 import React, { FC, useCallback, useState } from "react";
 import { pb } from "../../helpers/pocketbase";
 
-export { Page };
+export { Page, getDocumentProps };
 
 const Page: FC = () => {
   const [busy, setBusy] = useState(false);
@@ -62,3 +62,9 @@ const Page: FC = () => {
     </>
   );
 };
+
+const getDocumentProps = () => ({
+  title: "Xendit Checkout Demo",
+  description:
+    "Checkout flow using Xendit to demonstrate usage of React on Vite with SSR",
+});

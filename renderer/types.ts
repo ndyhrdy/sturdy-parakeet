@@ -8,14 +8,14 @@ import type { PageContextBuiltIn } from "vite-plugin-ssr";
 import type { PageContextBuiltInClient } from "vite-plugin-ssr/client"; // When using Server Routing
 
 type Page = (pageProps: PageProps) => React.ReactElement;
-type PageProps = {};
+type PageProps<T = {}> = T;
 
 export type PageContextCustom = {
   Page: Page;
   pageProps?: PageProps;
   urlPathname: string;
   exports: {
-    documentProps?: {
+    getDocumentProps?: (pageContext: PageProps) => {
       title?: string;
       description?: string;
     };

@@ -1,7 +1,12 @@
-import { PageContextServer } from "../../../renderer/types";
+import { PageContextServer, PageProps } from "../../../renderer/types";
 import { pbApi } from "../../../helpers/pocketbase";
 
-export { onBeforeRender };
+export { getDocumentProps, onBeforeRender };
+
+const getDocumentProps = (pageProps: PageProps<{ order: Order }>) => ({
+  title: `Order #${pageProps.order.id}`,
+  desc: "Please pay for your order",
+});
 
 const onBeforeRender = async (pageContext: PageContextServer) => {
   if (!pageContext.routeParams) {
