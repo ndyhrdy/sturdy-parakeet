@@ -6,8 +6,27 @@ type PbRecord<T> = {
   collectionName: string;
 } & T;
 
-type Order = PbRecord<{
+type BaseOrder = PbRecord<{
+  collectionName: "orders";
   amount: number;
   expiry: string;
-  collectionName: "orders";
+  status: OrderStatus;
 }>;
+
+type OrderStatus = "PENDING" | "EXPIRED" | "PAID";
+
+type PendingOrder = BaseOrder & {
+  status: "PENDING";
+};
+
+type PaidOrder = BaseOrder & {
+  status: "PAID";
+  paid: string;
+  paymentChannel: string;
+};
+
+type ExpiredOrder = BaseOrder & {
+  status: "EXPIRED";
+};
+
+type Order = PendingOrder | PaidOrder | ExpiredOrder;

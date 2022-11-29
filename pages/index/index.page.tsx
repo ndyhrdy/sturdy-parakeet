@@ -15,6 +15,7 @@ const Page: FC = () => {
       const orderData = {
         amount: 500_000,
         expiry: moment().add(1, "day").toISOString(),
+        status: "PENDING",
       };
 
       const order = await pb.collection("orders").create(orderData);

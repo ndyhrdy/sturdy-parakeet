@@ -3,7 +3,7 @@ import { pbApi } from "../../../helpers/pocketbase";
 
 export { getDocumentProps, onBeforeRender };
 
-const getDocumentProps = (pageProps: PageProps<{ order: Order }>) => ({
+const getDocumentProps = (pageProps: PageProps<{ order: BaseOrder }>) => ({
   title: `Order #${pageProps.order.id}`,
   desc: "Please pay for your order",
 });
