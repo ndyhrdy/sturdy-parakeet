@@ -1,9 +1,10 @@
 import { UnsubscribeFunc } from "pocketbase";
 import React, { FC, useEffect, useState } from "react";
+import { Link } from "../../../renderer/Link";
 import { PageProps } from "../../../renderer/types";
+import { Payment } from "../../../components/Payment";
 import { pb } from "../../../helpers/pocketbase";
 import xenditLogo from "../../../assets/xendit-logo.svg";
-import { Link } from "../../../renderer/Link";
 
 export { Page };
 
@@ -33,8 +34,8 @@ const Page: FC<PageProps<Props>> = ({ order: defaultOrder }) => {
   return (
     <>
       <div className="container mx-auto max-w-screen-xl border-l border-r border-dashed dark:border-stone-800 dark:bg-stone-900">
-        <div className="flex items-stretch min-h-screen -mx-6">
-          <div className="w-1/2 px-6 border-r border-dashed dark:border-stone-800 flex flex-col justify-center">
+        <div className="flex items-stretch min-h-screen">
+          <div className="w-1/2 border-r border-dashed dark:border-stone-800 flex flex-col justify-center">
             <Link
               href="/"
               className="flex mb-12 items-center px-6 space-x-3 group"
@@ -67,7 +68,9 @@ const Page: FC<PageProps<Props>> = ({ order: defaultOrder }) => {
             </div>
             <p className="text-stone-600 px-6">Order ID: {order.id}</p>
           </div>
-          <div className="w-1/2 px-6"></div>
+          <div className="w-1/2 flex flex-col justify-center">
+            <Payment />
+          </div>
         </div>
       </div>
     </>
