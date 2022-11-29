@@ -15,7 +15,7 @@ function PageShell({
   return (
     <React.StrictMode>
       <PageContextProvider pageContext={pageContext}>
-        <div className="bg-gradient-to-br dark:from-stone-800 dark:via-stone-900 dark:to-stone-900 min-h-screen antialiased">
+        <div className="bg-gradient-to-br from-stone-100 via-stone-50 to-stone-50 dark:from-stone-800 dark:via-stone-900 dark:to-stone-900 min-h-screen antialiased text-stone-900 dark:text-stone-100">
           {children}
         </div>
       </PageContextProvider>

@@ -44,22 +44,26 @@ const Payment: FC = () => {
                 onClick={() => {
                   window.location.hash = `#${paymentMethod.key.toLocaleLowerCase()}`;
                 }}
-                className={`w-36 h-24 p-3 shadow hover:shadow-md border-2 bg-white dark:bg-stone-800 rounded-lg flex flex-col space-y-2 justify-end ${
+                className={`w-36 h-24 p-3 shadow border-2 bg-white dark:bg-stone-800 rounded-lg flex flex-col space-y-2 justify-end ${
                   isSelected
-                    ? "border-teal-600"
-                    : "border-stone-800 hover:border-stone-700 hover:bg-stone-700 transition-colors"
+                    ? "border-teal-500 dark:border-teal-600"
+                    : "border-white dark:border-stone-800 dark:hover:border-stone-700 dark:hover:bg-stone-700 hover:shadow-md group transition-all"
                 }`}
               >
                 <span
                   className={`transition-colors ${
-                    isSelected ? "text-teal-500" : "text-white"
+                    isSelected
+                      ? "text-teal-500"
+                      : "text-stone-400 dark:text-stone-400 group-hover:text-stone-600 dark:group-hover:text-stone-100"
                   }`}
                 >
                   <paymentMethod.icon />
                 </span>
                 <span
                   className={`${
-                    isSelected ? "text-teal-400" : "text-white"
+                    isSelected
+                      ? "text-teal-600 dark:text-teal-400"
+                      : "text-stone-500 dark:text-stone-400 group-hover:text-stone-600 dark:group-hover:text-stone-100"
                   } font-semibold transition-colors`}
                 >
                   {paymentMethod.label}

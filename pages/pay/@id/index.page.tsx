@@ -33,12 +33,12 @@ const Page: FC<PageProps<Props>> = ({ order: defaultOrder }) => {
 
   return (
     <>
-      <div className="container mx-auto max-w-screen-xl border-l border-r border-dashed dark:border-stone-800 dark:bg-stone-900">
+      <div className="container mx-auto max-w-screen-xl border-l border-r border-dashed bg-stone-50 dark:border-stone-800 dark:bg-stone-900">
         <div className="flex items-stretch min-h-screen">
           <div className="w-1/2 border-r border-dashed dark:border-stone-800 flex flex-col justify-center">
             <Link
               href="/"
-              className="flex mb-12 items-center px-6 space-x-3 group"
+              className="inline-flex self-start mb-12 items-center px-6 space-x-3 group"
             >
               <div className="bg-teal-500 group-hover:bg-teal-600 w-14 h-14 rounded-xl flex justify-center items-center shadow-lg transition-colors">
                 <img src={xenditLogo} alt="Xendit logo" />
@@ -48,14 +48,16 @@ const Page: FC<PageProps<Props>> = ({ order: defaultOrder }) => {
               </span>
             </Link>
             <div className="space-y-2 mb-12 px-6">
-              <p className="dark:text-stone-600">Hi! You need to pay</p>
-              <p className="dark:text-stone-100 text-5xl font-semibold">
+              <p className="text-stone-400 dark:text-stone-600">
+                Hi! You need to pay
+              </p>
+              <p className="text-5xl font-semibold">
                 {Intl.NumberFormat("id", {
                   style: "currency",
                   currency: "IDR",
                 }).format(order.amount)}
               </p>
-              <p className="dark:text-stone-100">
+              <p>
                 by{" "}
                 {Intl.DateTimeFormat("id", { dateStyle: "long" }).format(
                   new Date(order.expiry)
@@ -66,7 +68,9 @@ const Page: FC<PageProps<Props>> = ({ order: defaultOrder }) => {
                 )}
               </p>
             </div>
-            <p className="text-stone-600 px-6">Order ID: {order.id}</p>
+            <p className="text-stone-400 dark:text-stone-600 px-6">
+              Order ID: {order.id}
+            </p>
           </div>
           <div className="w-1/2 flex flex-col justify-center">
             <Payment />
