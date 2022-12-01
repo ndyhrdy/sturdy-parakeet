@@ -13,8 +13,8 @@ import CreditCard from "./icons/CreditCard";
 export { Payment, usePaymentContext };
 
 const PAYMENT_METHODS = [
-  { key: "CREDIT_CARD", icon: CreditCard, label: "Credit Card" },
-  { key: "BANK_TRANSFER", icon: BankTransfer, label: "Bank Transfer" },
+  { key: "CARD", icon: CreditCard, label: "Credit Card" },
+  { key: "VIRTUAL_ACCOUNT", icon: BankTransfer, label: "Virtual Account" },
 ];
 
 type PaymentContextValues = {
@@ -22,6 +22,7 @@ type PaymentContextValues = {
   onError: () => any;
   onSubmit: () => any;
   onSuccess: () => any;
+  order: PendingOrder | null;
   selectedMethod: string | null;
 };
 
@@ -30,12 +31,17 @@ const PaymentContext = createContext<PaymentContextValues>({
   onError: () => {},
   onSubmit: () => {},
   onSuccess: () => {},
+  order: null,
   selectedMethod: null,
 });
 
 const usePaymentContext = () => useContext(PaymentContext);
 
-const Payment: FC = () => {
+type Props = {
+  order: PendingOrder;
+};
+
+const Payment: FC<Props> = ({ order }) => {
   const [busy, setBusy] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState(PAYMENT_METHODS[0].key);
 
@@ -77,6 +83,7 @@ const Payment: FC = () => {
         onError: handleError,
         onSubmit: handleSubmit,
         onSuccess: handleSuccess,
+        order,
         selectedMethod,
       }}
     >
@@ -112,7 +119,7 @@ const Payment: FC = () => {
                       isSelected
                         ? "text-teal-600 dark:text-teal-400"
                         : "text-stone-500 dark:text-stone-400 group-hover:text-stone-600 dark:group-hover:text-stone-100"
-                    } font-semibold transition-colors`}
+                    } font-semibold transition-colors text-sm`}
                   >
                     {paymentMethod.label}
                   </span>
@@ -124,7 +131,7 @@ const Payment: FC = () => {
         <div>
           {(() => {
             switch (selectedMethod) {
-              case "CREDIT_CARD":
+              case "CARD":
                 return <CreditCardForm />;
               default:
                 return null;

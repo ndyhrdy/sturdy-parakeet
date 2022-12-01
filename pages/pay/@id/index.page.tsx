@@ -58,7 +58,7 @@ const Page: FC<PageProps<Props>> = ({ order: defaultOrder }) => {
             </p>
           </div>
           <div className="w-1/2 flex flex-col justify-center">
-            {order.status === "PENDING" && <Payment />}
+            {order.status === "PENDING" && <Payment order={order} />}
           </div>
         </div>
       </div>

@@ -1,27 +1,55 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import React, { FC } from "react";
+import { api } from "../helpers/api";
 import { usePaymentContext } from "./Payment";
 
 export { CreditCardForm };
 
 const CreditCardForm: FC = () => {
-  const { busy, onError, onSubmit, onSuccess } = usePaymentContext();
+  const { busy, onError, onSubmit, onSuccess, order } = usePaymentContext();
 
-  const { errors, handleChange, handleSubmit, isSubmitting, values } =
-    useFormik({
-      initialValues: {
-        cardNumber: "",
-        validThru: "",
-        cvv: "",
-      },
-      onSubmit: async () => {},
-      validationSchema: yup.object({
-        cardNumber: yup.string().required("Required"),
-        validThru: yup.string().required("Required"),
-        cvv: yup.string().required("Required"),
-      }),
-    });
+  const { errors, handleChange, handleSubmit, values } = useFormik({
+    initialValues: {
+      cardNumber: "",
+      validThru: "",
+      cvv: "",
+    },
+    onSubmit: async (values) => {
+      if (!order) {
+        return;
+      }
+
+      const [expiryMonth, expiryYear] = values.validThru.split("/");
+
+      onSubmit();
+      try {
+        await api.post("/payment-methods", {
+          type: "CARD",
+          reusability: "ONE_TIME_USE",
+          reference_id: order.id,
+          card: {
+            currency: "IDR",
+            card_information: {
+              card_number: values.cardNumber,
+              expiry_month: expiryMonth,
+              expiry_year:
+                expiryYear.length < 4 ? `20${expiryYear}` : expiryYear,
+            },
+          },
+        });
+      } catch (error) {
+        onError();
+        return Promise.reject(error);
+      }
+      onSuccess();
+    },
+    validationSchema: yup.object({
+      cardNumber: yup.string().required("Required"),
+      validThru: yup.string().required("Required"),
+      cvv: yup.string().required("Required"),
+    }),
+  });
 
   return (
     <form className="px-6" onSubmit={handleSubmit}>
@@ -35,8 +63,9 @@ const CreditCardForm: FC = () => {
             name="cardNumber"
             value={values.cardNumber}
             onChange={handleChange}
+            disabled={busy}
             className="h-10 px-3 rounded-md dark:bg-stone-800 focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
-            placeholder="4000 0000 0000 0002"
+            placeholder="4000 0000 0000 1091"
             autoFocus
           />
           {!!errors.cardNumber && (
@@ -52,6 +81,7 @@ const CreditCardForm: FC = () => {
             name="validThru"
             value={values.validThru}
             onChange={handleChange}
+            disabled={busy}
             className="h-10 px-3 rounded-md dark:bg-stone-800 focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
             placeholder="12/34"
           />
@@ -68,6 +98,7 @@ const CreditCardForm: FC = () => {
             name="cvv"
             value={values.cvv}
             onChange={handleChange}
+            disabled={busy}
             className="h-10 px-3 rounded-md dark:bg-stone-800 focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
             placeholder="123"
           />

@@ -1,6 +1,12 @@
+import * as dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
+
 import express from "express";
 import compression from "compression";
+import bodyParser from "body-parser";
 import { renderPage } from "vite-plugin-ssr";
+
+import { assignPaymentMethod } from "./assignPaymentMethod";
 
 const isProduction = process.env.NODE_ENV === "production";
 const root = `${__dirname}/..`;
@@ -9,6 +15,8 @@ startServer();
 
 async function startServer() {
   const app = express();
+
+  const jsonParser = bodyParser.json();
 
   app.use(compression());
 
@@ -25,6 +33,8 @@ async function startServer() {
     ).middlewares;
     app.use(viteDevMiddleware);
   }
+
+  app.post("/api/payment-methods", jsonParser, assignPaymentMethod);
 
   app.get("*", async (req, res, next) => {
     const pageContextInit = {
