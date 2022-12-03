@@ -53,7 +53,9 @@ const Page: FC = () => {
             </button>
             <a
               href="https://github.com/ndyhrdy/sturdy-parakeet"
-              className="flex items-center rounded-lg border-2 border-teal-500 dark:border-teal-600 hover:bg-teal-500 hover:dark:bg-teal-600 transition-colors text-teal-600 dark:text-teal-500 hover:text-white h-12 px-6 text-lg"
+              className="flex items-center rounded-lg border-2 border-teal-500 dark:border-teal-600 hover:bg-teal-500 hover:dark:bg-teal-600 transition-colors text-teal-600 dark:text-teal-500 hover:dark:text-white h-12 px-6 text-lg"
+              target="_blank"
+              rel="noreferrer"
             >
               Explore Code
             </a>
