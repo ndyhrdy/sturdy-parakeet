@@ -9,6 +9,7 @@ import React, {
 import { CreditCardPayment } from "./CreditCardPayment";
 import BankTransfer from "./icons/BankTransfer";
 import CreditCard from "./icons/CreditCard";
+import { VirtualAccountPayment } from "./VirtualAccountPayment";
 
 export { Payment, usePaymentContext };
 
@@ -146,6 +147,8 @@ const Payment: FC<Props> = ({ order }) => {
             switch (selectedMethod) {
               case "CARD":
                 return <CreditCardPayment />;
+              case "VIRTUAL_ACCOUNT":
+                return <VirtualAccountPayment />;
               default:
                 return null;
             }
