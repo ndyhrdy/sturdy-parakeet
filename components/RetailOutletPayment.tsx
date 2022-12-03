@@ -8,6 +8,7 @@ import {
 } from "./Accordion";
 import { ChannelAlfamart } from "./icons/ChannelAlfamart";
 import { usePaymentContext } from "./Payment";
+import { RetailOutletDetails } from "./RetailOutletDetails";
 
 export { RetailOutletPayment };
 
@@ -55,7 +56,9 @@ const RetailOutlet: FC<RetailOutletProps> = ({ channel }) => {
           </span>
         </div>
       </AccordionItemHeader>
-      <AccordionItemContent></AccordionItemContent>
+      <AccordionItemContent>
+        <RetailOutletDetails roName={channel.key} />
+      </AccordionItemContent>
     </AccordionItem>
   );
 };
