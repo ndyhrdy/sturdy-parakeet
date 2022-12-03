@@ -10,6 +10,7 @@ import { BankTransfer } from "./icons/BankTransfer";
 import { CreditCardPayment } from "./CreditCardPayment";
 import { CreditCard } from "./icons/CreditCard";
 import { RetailOutlet } from "./icons/RetailOutlet";
+import { RetailOutletPayment } from "./RetailOutletPayment";
 import { VirtualAccountPayment } from "./VirtualAccountPayment";
 
 export { Payment, usePaymentContext };
@@ -151,6 +152,8 @@ const Payment: FC<Props> = ({ order }) => {
                 return <CreditCardPayment />;
               case "VIRTUAL_ACCOUNT":
                 return <VirtualAccountPayment />;
+              case "OVER_THE_COUNTER":
+                return <RetailOutletPayment />;
               default:
                 return null;
             }
