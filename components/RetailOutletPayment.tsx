@@ -7,6 +7,7 @@ import {
   useAccordionContext,
 } from "./Accordion";
 import { ChannelAlfamart } from "./icons/ChannelAlfamart";
+import { ChannelIndomaret } from "./icons/ChannelIndomaret";
 import { usePaymentContext } from "./Payment";
 import { RetailOutletDetails } from "./RetailOutletDetails";
 
@@ -14,6 +15,7 @@ export { RetailOutletPayment };
 
 const CHANNELS = [
   { key: "ALFAMART", icon: ChannelAlfamart, label: "Alfamart" },
+  { key: "INDOMARET", icon: ChannelIndomaret, label: "Indomaret" },
 ];
 
 const RetailOutletPayment: FC = () => {
