@@ -5,6 +5,7 @@ import { ChannelBni } from "./icons/ChannelBni";
 import { ChannelMandiri } from "./icons/ChannelMandiri";
 import { ChannelPermata } from "./icons/ChannelPermata";
 import { VirtualAccountDetails } from "./VirtualAccountDetails";
+import { usePaymentContext } from "./Payment";
 
 export { VirtualAccountPayment };
 
@@ -55,6 +56,7 @@ const VirtualAccount: FC<VirtualAccountProps> = ({
   channel,
   onToggle,
 }) => {
+  const { locked } = usePaymentContext();
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
@@ -78,9 +80,12 @@ const VirtualAccount: FC<VirtualAccountProps> = ({
         onClick={() => {
           onToggle();
         }}
+        disabled={locked}
         className={`w-full text-left flex items-center justify-between px-6 transition-all duration-300 dark:bg-stone-800 ${
           selected || initial ? "h-16" : "h-10"
-        } ${!selected ? "dark:hover:bg-stone-700" : ""}`}
+        } ${!selected && !locked ? "dark:hover:bg-stone-700" : ""} ${
+          locked ? "cursor-not-allowed" : ""
+        }`}
       >
         <div className="flex-1 flex items-center space-x-3">
           <div className="w-16 flex">

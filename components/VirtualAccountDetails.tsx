@@ -9,6 +9,8 @@ type Props = {
 };
 
 const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
+  const { onLock, onUnlock } = usePaymentContext();
+
   const [creatingVirtualAccount, setCreatingVirtualAccount] = useState(false);
 
   const { order } = usePaymentContext();
@@ -27,6 +29,14 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
   useEffect(() => {
     handleCreateVirtualAccount();
   }, [handleCreateVirtualAccount]);
+
+  useEffect(() => {
+    if (creatingVirtualAccount) {
+      onLock();
+    } else {
+      onUnlock();
+    }
+  }, [creatingVirtualAccount, onLock, onUnlock]);
 
   if (creatingVirtualAccount) {
     return (

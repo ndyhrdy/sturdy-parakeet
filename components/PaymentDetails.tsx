@@ -3,6 +3,7 @@ import {
   getPaymentChannelLabel,
   PaymentChannel,
 } from "../helpers/payment-channel";
+import { Link } from "../renderer/Link";
 
 export { PaymentDetails };
 
@@ -46,7 +47,7 @@ const PaymentDetails: FC<Props> = ({ ...order }) => {
       <h2 className="uppercase font-semibold text-sm dark:text-stone-500 mb-3">
         Payment Details
       </h2>
-      <ul className="space-y-2">
+      <ul className="space-y-2 mb-12">
         {details.map(({ label, value }) => {
           return (
             <li key={label} className="flex -mx-1">
@@ -56,6 +57,16 @@ const PaymentDetails: FC<Props> = ({ ...order }) => {
           );
         })}
       </ul>
+      <p>
+        Click{" "}
+        <Link
+          href="/"
+          className="text-teal-500 dark:text-teal-400 hover:underline"
+        >
+          here
+        </Link>{" "}
+        to return to the home page.
+      </p>
     </div>
   );
 };
