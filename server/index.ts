@@ -36,6 +36,8 @@ async function startServer() {
 
   app.use("/api", jsonParser, apiRouter);
 
+  app.use(express.static("public"));
+
   app.get("*", async (req, res, next) => {
     const pageContextInit = {
       urlOriginal: req.originalUrl,
