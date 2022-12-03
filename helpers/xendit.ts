@@ -10,6 +10,8 @@ const getAuthorizationHeader = () => {
   return `Basic ${base64String}`;
 };
 
+console.log(getAuthorizationHeader());
+
 const xenditApi = axios.create({
   baseURL: "https://api.xendit.co",
   headers: {
