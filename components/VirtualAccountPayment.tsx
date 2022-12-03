@@ -1,4 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemHeader,
+  useAccordionContext,
+} from "./Accordion";
 import { ChannelBri } from "./icons/ChannelBri";
 import { ChannelBca } from "./icons/ChannelBca";
 import { ChannelBni } from "./icons/ChannelBni";
@@ -18,75 +25,30 @@ const CHANNELS = [
 ];
 
 const VirtualAccountPayment = () => {
-  const [selection, setSelection] = useState<string | null>(null);
-  const isInitial = selection === null;
-
+  const { locked } = usePaymentContext();
   return (
     <div className="px-6">
-      <ul className="flex flex-col items-stretch space-y-2">
+      <Accordion disabled={locked}>
         {CHANNELS.map((channel) => {
-          const isSelected = selection === channel.key;
-          return (
-            <VirtualAccount
-              key={channel.key}
-              selected={isSelected}
-              initial={isInitial}
-              channel={channel}
-              onToggle={() => {
-                setSelection(isSelected ? null : channel.key);
-              }}
-            />
-          );
+          return <VirtualAccount key={channel.key} channel={channel} />;
         })}
-      </ul>
+      </Accordion>
     </div>
   );
 };
 
 type VirtualAccountProps = {
-  initial: boolean;
-  selected: boolean;
   channel: typeof CHANNELS[number];
-  onToggle: () => any;
 };
 
-const VirtualAccount: FC<VirtualAccountProps> = ({
-  initial,
-  selected,
-  channel,
-  onToggle,
-}) => {
-  const { locked } = usePaymentContext();
-  const [showContent, setShowContent] = useState(false);
+const VirtualAccount: FC<VirtualAccountProps> = ({ channel }) => {
+  const { selection } = useAccordionContext();
 
-  useEffect(() => {
-    if (selected) {
-      setShowContent(true);
-    } else {
-      setTimeout(() => {
-        setShowContent(false);
-      }, 300);
-    }
-  }, [selected]);
+  const selected = selection === channel.key;
 
   return (
-    <li
-      className={`overflow-hidden border-2 dark:border-stone-800 ${
-        selected || initial ? "rounded-xl" : "rounded-lg"
-      }`}
-    >
-      <button
-        type="button"
-        onClick={() => {
-          onToggle();
-        }}
-        disabled={locked}
-        className={`w-full text-left flex items-center justify-between px-6 transition-all duration-300 dark:bg-stone-800 ${
-          selected || initial ? "h-16" : "h-10"
-        } ${!selected && !locked ? "dark:hover:bg-stone-700" : ""} ${
-          locked ? "cursor-not-allowed" : ""
-        }`}
-      >
+    <AccordionItem id={channel.key}>
+      <AccordionItemHeader>
         <div className="flex-1 flex items-center space-x-3">
           <div className="w-16 p-1 flex">
             <channel.icon
@@ -101,14 +63,10 @@ const VirtualAccount: FC<VirtualAccountProps> = ({
             {channel.label}
           </span>
         </div>
-      </button>
-      <div
-        className={`${
-          selected ? "max-h-96" : "max-h-0"
-        } transition-all duration-300 overflow-y-auto`}
-      >
-        {showContent && <VirtualAccountDetails bankCode={channel.key} />}
-      </div>
-    </li>
+      </AccordionItemHeader>
+      <AccordionItemContent>
+        <VirtualAccountDetails bankCode={channel.key} />
+      </AccordionItemContent>
+    </AccordionItem>
   );
 };
