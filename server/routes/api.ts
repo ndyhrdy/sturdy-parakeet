@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { chargeController } from "../controllers/charge";
+import { vaController } from "../controllers/va";
 
 export { router };
 
 const router = Router();
 
-router.post("/payment/charge/:orderId", chargeController);
+router.use("/payment/charge", chargeController);
+router.use("/payment/va", vaController);

@@ -98,7 +98,7 @@ const VirtualAccount: FC<VirtualAccountProps> = ({
           selected ? "max-h-96" : "max-h-0"
         } transition-all duration-300`}
       >
-        {showContent && <VirtualAccountDetails />}
+        {showContent && <VirtualAccountDetails bankCode={channel.key} />}
       </div>
     </li>
   );

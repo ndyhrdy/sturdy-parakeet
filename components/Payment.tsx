@@ -15,7 +15,7 @@ export { Payment, usePaymentContext };
 
 const PAYMENT_METHODS = [
   { key: "CARD", icon: CreditCard, label: "Card" },
-  { key: "VIRTUAL_ACCOUNT", icon: BankTransfer, label: "Virtual Account" },
+  { key: "VIRTUAL_ACCOUNT", icon: BankTransfer, label: "Bank Transfer" },
 ];
 
 type PaymentContextValues = {

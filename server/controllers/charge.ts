@@ -1,11 +1,13 @@
-import { Request, Response } from "express";
+import { Request, Response, Router } from "express";
 import { chargeOrder } from "../fx/chargeOrder";
 import { getPendingOrder } from "../fx/getPendingOrder";
 import { setOrderPaidByCreditCard } from "../fx/setOrderPaidByCreditCard";
 
 export { chargeController };
 
-const chargeController = async (req: Request, res: Response) => {
+const chargeController = Router();
+
+chargeController.post("/:orderId", async (req: Request, res: Response) => {
   const orderId = req.params.orderId;
 
   let order: PendingOrder;
@@ -24,4 +26,4 @@ const chargeController = async (req: Request, res: Response) => {
     return;
   }
   res.status(200).send("Credit card charge successful!");
-};
+});
