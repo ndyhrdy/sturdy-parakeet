@@ -4,8 +4,8 @@ import { ChannelBca } from "./icons/ChannelBca";
 import { ChannelBni } from "./icons/ChannelBni";
 import { ChannelMandiri } from "./icons/ChannelMandiri";
 import { ChannelPermata } from "./icons/ChannelPermata";
-import { VirtualAccountDetails } from "./VirtualAccountDetails";
 import { usePaymentContext } from "./Payment";
+import { VirtualAccountDetails } from "./VirtualAccountDetails";
 
 export { VirtualAccountPayment };
 
@@ -88,7 +88,7 @@ const VirtualAccount: FC<VirtualAccountProps> = ({
         }`}
       >
         <div className="flex-1 flex items-center space-x-3">
-          <div className="w-16 flex">
+          <div className="w-16 p-1 flex">
             <channel.icon
               className={`max-h-4 ${selected ? "text-teal-500" : ""}`}
             />
