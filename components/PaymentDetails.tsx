@@ -1,4 +1,8 @@
 import React, { FC, useMemo } from "react";
+import {
+  getPaymentChannelLabel,
+  PaymentChannel,
+} from "../helpers/payment-channel";
 
 export { PaymentDetails };
 
@@ -14,7 +18,12 @@ const PaymentDetails: FC<Props> = ({ ...order }) => {
           currency: "IDR",
         }).format(order.amount),
       },
-      { label: "Payment Channel", value: order.paymentMethod.channel },
+      {
+        label: "Payment Channel",
+        value: getPaymentChannelLabel(
+          order.paymentMethod.channel as PaymentChannel
+        ),
+      },
       {
         label: "Payment Received",
         value: `${Intl.DateTimeFormat("id", { dateStyle: "long" }).format(

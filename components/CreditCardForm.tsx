@@ -197,7 +197,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
               : "transition-colors bg-teal-500 hover:bg-teal-600"
           }`}
         >
-          Pay with Credit Card &rarr;
+          Pay with Card &rarr;
         </button>
       </div>
     </form>

@@ -13,7 +13,7 @@ import CreditCard from "./icons/CreditCard";
 export { Payment, usePaymentContext };
 
 const PAYMENT_METHODS = [
-  { key: "CARD", icon: CreditCard, label: "Credit Card" },
+  { key: "CARD", icon: CreditCard, label: "Card" },
   { key: "VIRTUAL_ACCOUNT", icon: BankTransfer, label: "Virtual Account" },
 ];
 
