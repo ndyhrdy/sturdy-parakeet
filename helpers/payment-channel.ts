@@ -7,6 +7,7 @@ const paymentChannels = [
   "BCA",
   "MANDIRI",
   "PERMATA",
+  "ALFAMART",
 ] as const;
 
 type PaymentChannel = typeof paymentChannels[number];
@@ -25,6 +26,8 @@ const getPaymentChannelLabel = (channel: PaymentChannel): string => {
       return "Bank Transfer - Bank Mandiri";
     case "PERMATA":
       return "Bank Transfer - Bank Permata";
+    case "ALFAMART":
+      return "Retail Outlet - Alfamart";
     default:
       return "N/A";
   }
