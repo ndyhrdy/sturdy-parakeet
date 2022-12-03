@@ -6,9 +6,10 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { BankTransfer } from "./icons/BankTransfer";
 import { CreditCardPayment } from "./CreditCardPayment";
-import BankTransfer from "./icons/BankTransfer";
-import CreditCard from "./icons/CreditCard";
+import { CreditCard } from "./icons/CreditCard";
+import { RetailOutlet } from "./icons/RetailOutlet";
 import { VirtualAccountPayment } from "./VirtualAccountPayment";
 
 export { Payment, usePaymentContext };
@@ -16,6 +17,7 @@ export { Payment, usePaymentContext };
 const PAYMENT_METHODS = [
   { key: "CARD", icon: CreditCard, label: "Card" },
   { key: "VIRTUAL_ACCOUNT", icon: BankTransfer, label: "Bank Transfer" },
+  { key: "OVER_THE_COUNTER", icon: RetailOutlet, label: "Retail Outlet" },
 ];
 
 type PaymentContextValues = {
@@ -126,7 +128,7 @@ const Payment: FC<Props> = ({ order }) => {
                         : "text-stone-400 dark:text-stone-400 group-hover:text-stone-600 dark:group-hover:text-stone-100"
                     }`}
                   >
-                    <paymentMethod.icon />
+                    <paymentMethod.icon className="h-10 w-10" />
                   </span>
                   <span
                     className={`${

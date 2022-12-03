@@ -1,13 +1,14 @@
-import React from "react";
+import React, { FC, SVGProps } from "react";
 
-const CreditCard = () => {
+export { CreditCard };
+
+const CreditCard: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
-      width="32"
-      height="32"
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M27 7.5H5A1.5 1.5 0 003.5 9v14A1.5 1.5 0 005 24.5h22a1.5 1.5 0 001.5-1.5V9A1.5 1.5 0 0027 7.5z"
@@ -20,5 +21,3 @@ const CreditCard = () => {
     </svg>
   );
 };
-
-export default CreditCard;

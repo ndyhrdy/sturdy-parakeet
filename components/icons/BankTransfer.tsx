@@ -1,13 +1,14 @@
-import React from "react";
+import React, { FC, SVGProps } from "react";
 
-const BankTransfer = () => {
+export { BankTransfer };
+
+const BankTransfer: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
-      width="32"
-      height="32"
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M7.684 12.5h-3v13h3v-13zM15.684 12.5h-3v13h3v-13zM23.684 12.5h-3v13h3v-13zM3.184 25.5h22a1.5 1.5 0 011.5 1.5v1a.5.5 0 01-.5.5h-24a.5.5 0 01-.5-.5v-1a1.5 1.5 0 011.5-1.5v0zM26.684 9.5h-25v3h25v-3z"
@@ -34,5 +35,3 @@ const BankTransfer = () => {
     </svg>
   );
 };
-
-export default BankTransfer;

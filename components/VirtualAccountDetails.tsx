@@ -1,5 +1,5 @@
-import axios from "axios";
 import { isString, lowerCase } from "lodash";
+import axios from "axios";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { api } from "../helpers/api";
@@ -75,13 +75,13 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
         <div className="p-6 flex flex-col space-y-3">
           <div>
             <h3 className="uppercase font-semibold text-sm dark:text-stone-500 mb-1">
-              Virtual Account Name
+              Account Name
             </h3>
             <div className="text-xl">{virtualAccount.name}</div>
           </div>
           <div>
             <h3 className="uppercase font-semibold text-sm dark:text-stone-500 mb-1">
-              Virtual Account Number
+              Account Number
             </h3>
             <div className="text-xl">{virtualAccount.account_number}</div>
           </div>
