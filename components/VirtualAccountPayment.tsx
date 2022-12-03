@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
-import { ChannelBri } from "./ChannelBri";
+import { ChannelBri } from "./icons/ChannelBri";
 import { ChannelBca } from "./icons/ChannelBca";
 import { ChannelBni } from "./icons/ChannelBni";
 import { ChannelMandiri } from "./icons/ChannelMandiri";
+import { ChannelPermata } from "./icons/ChannelPermata";
 import { VirtualAccountDetails } from "./VirtualAccountDetails";
 
 export { VirtualAccountPayment };
@@ -12,6 +13,7 @@ const CHANNELS = [
   { key: "BCA", icon: ChannelBca, label: "Bank Central Asia (BCA)" },
   { key: "BNI", icon: ChannelBni, label: "Bank Negara Indonesia (BNI46)" },
   { key: "MANDIRI", icon: ChannelMandiri, label: "Bank Mandiri" },
+  { key: "PERMATA", icon: ChannelPermata, label: "Bank Permata" },
 ];
 
 const VirtualAccountPayment = () => {
