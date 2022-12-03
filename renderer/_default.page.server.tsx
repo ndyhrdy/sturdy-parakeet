@@ -34,6 +34,8 @@ async function render(pageContext: PageContextServer) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${description}" />
         <title>${title}</title>
+
+        <script type="text/javascript" src="https://js.xendit.co/v1/xendit.min.js"></script>
       </head>
       <body>
         <div id="page-view" class="dark">${dangerouslySkipEscape(

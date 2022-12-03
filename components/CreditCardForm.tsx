@@ -1,15 +1,50 @@
+import { isEmpty } from "lodash";
 import { useFormik } from "formik";
-import * as yup from "yup";
-import React, { FC } from "react";
+import InputMask from "react-input-mask";
+import React, { FC, useEffect } from "react";
 import { api } from "../helpers/api";
 import { usePaymentContext } from "./Payment";
 
 export { CreditCardForm };
 
-const CreditCardForm: FC = () => {
-  const { busy, onError, onSubmit, onSuccess, order } = usePaymentContext();
+type FormValues = {
+  cardNumber: string;
+  validThru: string;
+  cvv: string;
+};
 
-  const { errors, handleChange, handleSubmit, values } = useFormik({
+type Props = {
+  onReset: () => any;
+  onReview: (reviewUrl: string) => any;
+};
+
+declare global {
+  interface Window {
+    Xendit: any;
+  }
+}
+
+const formatValues = (values: FormValues) => {
+  const cardNumber = values.cardNumber.replaceAll(" ", "");
+  const [expiryMonth, expiryYear] = values.validThru.split("/");
+
+  return {
+    cardNumber,
+    expiryMonth,
+    expiryYear: `20${expiryYear}`,
+  };
+};
+
+const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
+  const {
+    locked: busy,
+    onError,
+    onLock,
+    onSubmit,
+    order,
+  } = usePaymentContext();
+
+  const { errors, handleChange, handleSubmit, values } = useFormik<FormValues>({
     initialValues: {
       cardNumber: "",
       validThru: "",
@@ -20,36 +55,78 @@ const CreditCardForm: FC = () => {
         return;
       }
 
-      const [expiryMonth, expiryYear] = values.validThru.split("/");
+      onLock();
+      type TokenizationResponse = {
+        id: string; // Token identifier
+        status: "IN_REVIEW" | "VERIFIED" | "FAILED"; // Token identifier status
+        failure_reason: string; // Token identifier failure reason
+        payer_authentication_url: string; // URL where your customer can perform 3DS verification
+      };
 
-      onSubmit();
-      try {
-        await api.post("/payment-methods", {
-          type: "CARD",
-          reusability: "ONE_TIME_USE",
-          reference_id: order.id,
-          card: {
-            currency: "IDR",
-            card_information: {
-              card_number: values.cardNumber,
-              expiry_month: expiryMonth,
-              expiry_year:
-                expiryYear.length < 4 ? `20${expiryYear}` : expiryYear,
-            },
-          },
-        });
-      } catch (error) {
-        onError();
-        return Promise.reject(error);
-      }
-      onSuccess();
+      const { cardNumber, expiryMonth, expiryYear } = formatValues(values);
+
+      const handleVerified = async (token: string) => {
+        try {
+          await api.post("/payment/charge", {
+            order: order.id,
+            paymentMethod: "CARD",
+            token,
+          });
+        } catch (error) {
+          onError(error as string);
+          onReset();
+          return Promise.reject(error);
+        }
+        onSubmit();
+      };
+
+      window.Xendit.card.createToken(
+        {
+          amount: order.amount,
+          card_number: cardNumber,
+          card_exp_month: expiryMonth,
+          card_exp_year: expiryYear,
+          card_cvn: values.cvv,
+          is_multiple_use: false,
+          should_authenticate: true,
+        },
+        (err: any, response: TokenizationResponse) => {
+          if (err) {
+            onError();
+            return Promise.reject(err);
+          }
+          if (response.status === "VERIFIED") {
+            return handleVerified(response.id);
+          }
+          if (response.status === "IN_REVIEW") {
+            return onReview(response.payer_authentication_url);
+          }
+          return onError(response.failure_reason);
+        }
+      );
     },
-    validationSchema: yup.object({
-      cardNumber: yup.string().required("Required"),
-      validThru: yup.string().required("Required"),
-      cvv: yup.string().required("Required"),
-    }),
+    validate: (values) => {
+      let errors: any = {};
+      const { cardNumber, expiryMonth, expiryYear } = formatValues(values);
+      if (!window.Xendit.card.validateCardNumber(cardNumber)) {
+        errors.cardNumber = "Card number is not valid";
+      }
+      if (!window.Xendit.card.validateExpiry(expiryMonth, expiryYear)) {
+        errors.validThru = "Invalid";
+      }
+      if (!window.Xendit.card.validateCvn(values.cvv)) {
+        errors.cvv = "Invalid";
+      }
+
+      if (!isEmpty(errors)) {
+        return errors;
+      }
+    },
   });
+
+  useEffect(() => {
+    window.Xendit.setPublishableKey(import.meta.env.VITE_XENDIT_PUBLIC_KEY);
+  }, []);
 
   return (
     <form className="px-6" onSubmit={handleSubmit}>
@@ -58,9 +135,11 @@ const CreditCardForm: FC = () => {
           <label htmlFor="cardNumber" className="text-sm dark:text-stone-400">
             Card Number
           </label>
-          <input
+          <InputMask
             type="tel"
             name="cardNumber"
+            mask={isEmpty(values.cardNumber) ? "" : "9999 9999 9999 9999"}
+            maskChar={null}
             value={values.cardNumber}
             onChange={handleChange}
             disabled={busy}
@@ -76,9 +155,11 @@ const CreditCardForm: FC = () => {
           <label htmlFor="validThru" className="text-sm dark:text-stone-400">
             Valid Thru
           </label>
-          <input
+          <InputMask
             type="tel"
             name="validThru"
+            mask={isEmpty(values.validThru) ? "" : "99/99"}
+            maskChar={null}
             value={values.validThru}
             onChange={handleChange}
             disabled={busy}
@@ -93,9 +174,11 @@ const CreditCardForm: FC = () => {
           <label htmlFor="cvv" className="text-sm dark:text-stone-400">
             Security Code
           </label>
-          <input
+          <InputMask
             type="tel"
             name="cvv"
+            mask={isEmpty(values.cvv) ? "" : "999"}
+            maskChar={null}
             value={values.cvv}
             onChange={handleChange}
             disabled={busy}

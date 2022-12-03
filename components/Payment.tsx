@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { CreditCardForm } from "./CreditCardForm";
+import { CreditCardPayment } from "./CreditCardPayment";
 import BankTransfer from "./icons/BankTransfer";
 import CreditCard from "./icons/CreditCard";
 
@@ -18,20 +18,24 @@ const PAYMENT_METHODS = [
 ];
 
 type PaymentContextValues = {
-  busy: boolean;
-  onError: () => any;
+  locked: boolean;
+  onError: (message?: string) => any;
+  onLock: () => any;
+  onUnlock: () => any;
   onSubmit: () => any;
-  onSuccess: () => any;
   order: PendingOrder | null;
+  processing: boolean;
   selectedMethod: string | null;
 };
 
 const PaymentContext = createContext<PaymentContextValues>({
-  busy: false,
+  locked: false,
   onError: () => {},
+  onLock: () => {},
+  onUnlock: () => {},
   onSubmit: () => {},
-  onSuccess: () => {},
   order: null,
+  processing: false,
   selectedMethod: null,
 });
 
@@ -42,7 +46,8 @@ type Props = {
 };
 
 const Payment: FC<Props> = ({ order }) => {
-  const [busy, setBusy] = useState(false);
+  const [locked, setLocked] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState(PAYMENT_METHODS[0].key);
 
   useEffect(() => {
@@ -64,26 +69,32 @@ const Payment: FC<Props> = ({ order }) => {
     };
   }, []);
 
-  const handleError = useCallback(() => {
-    setBusy(false);
+  const handleError = useCallback((message?: string) => {
+    window.alert(message);
+  }, []);
+
+  const handleLock = useCallback(() => {
+    setLocked(true);
   }, []);
 
   const handleSubmit = useCallback(() => {
-    setBusy(true);
+    setProcessing(true);
   }, []);
 
-  const handleSuccess = useCallback(() => {
-    setBusy(false);
+  const handleUnlock = useCallback(() => {
+    setLocked(false);
   }, []);
 
   return (
     <PaymentContext.Provider
       value={{
-        busy,
+        locked,
         onError: handleError,
+        onLock: handleLock,
         onSubmit: handleSubmit,
-        onSuccess: handleSuccess,
+        onUnlock: handleUnlock,
         order,
+        processing,
         selectedMethod,
       }}
     >
@@ -97,13 +108,15 @@ const Payment: FC<Props> = ({ order }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    window.location.hash = `#${paymentMethod.key.toLocaleLowerCase()}`;
+                    if (!locked) {
+                      window.location.hash = `#${paymentMethod.key.toLocaleLowerCase()}`;
+                    }
                   }}
                   className={`w-36 h-24 p-3 shadow border-2 bg-white dark:bg-stone-800 rounded-lg flex flex-col space-y-2 justify-end ${
                     isSelected
                       ? "border-teal-500 dark:border-teal-600"
                       : "border-white dark:border-stone-800 dark:hover:border-stone-700 dark:hover:bg-stone-700 hover:shadow-md group transition-all"
-                  }`}
+                  } ${locked ? "cursor-not-allowed" : ""}`}
                 >
                   <span
                     className={`transition-colors ${
@@ -132,7 +145,7 @@ const Payment: FC<Props> = ({ order }) => {
           {(() => {
             switch (selectedMethod) {
               case "CARD":
-                return <CreditCardForm />;
+                return <CreditCardPayment />;
               default:
                 return null;
             }
