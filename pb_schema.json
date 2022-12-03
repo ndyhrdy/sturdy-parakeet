@@ -130,6 +130,15 @@
         "required": false,
         "unique": false,
         "options": {}
+      },
+      {
+        "id": "6kikyhmd",
+        "name": "paymentCodes",
+        "type": "json",
+        "system": false,
+        "required": false,
+        "unique": false,
+        "options": {}
       }
     ],
     "listRule": null,
