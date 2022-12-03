@@ -1,12 +1,12 @@
 import * as dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
+import { renderPage } from "vite-plugin-ssr";
 import express from "express";
 import compression from "compression";
 import bodyParser from "body-parser";
-import { renderPage } from "vite-plugin-ssr";
 
-import { assignPaymentMethod } from "./assignPaymentMethod";
+import { router as apiRouter } from "./routes/api";
 
 const isProduction = process.env.NODE_ENV === "production";
 const root = `${__dirname}/..`;
@@ -34,7 +34,7 @@ async function startServer() {
     app.use(viteDevMiddleware);
   }
 
-  app.post("/api/payment-methods", jsonParser, assignPaymentMethod);
+  app.use("/api", jsonParser, apiRouter);
 
   app.get("*", async (req, res, next) => {
     const pageContextInit = {

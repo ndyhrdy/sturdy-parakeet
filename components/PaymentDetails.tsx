@@ -14,7 +14,7 @@ const PaymentDetails: FC<Props> = ({ ...order }) => {
           currency: "IDR",
         }).format(order.amount),
       },
-      { label: "Payment Channel", value: order.paymentChannel },
+      { label: "Payment Channel", value: order.paymentMethod.channel },
       {
         label: "Payment Received",
         value: `${Intl.DateTimeFormat("id", { dateStyle: "long" }).format(

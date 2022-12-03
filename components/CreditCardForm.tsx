@@ -67,9 +67,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
 
       const handleVerified = async (token: string) => {
         try {
-          await api.post("/payment/charge", {
-            order: order.id,
-            paymentMethod: "CARD",
+          await api.post(`/payment/charge/${order.id}`, {
             token,
           });
         } catch (error) {

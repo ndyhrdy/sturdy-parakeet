@@ -11,7 +11,6 @@ type BaseOrder = PbRecord<{
   amount: number;
   expiry: string;
   status: OrderStatus;
-  paymentMethod?: { id: string };
 }>;
 
 type OrderStatus = "PENDING" | "EXPIRED" | "PAID";
@@ -23,7 +22,7 @@ type PendingOrder = BaseOrder & {
 type PaidOrder = BaseOrder & {
   status: "PAID";
   paid: string;
-  paymentChannel: string;
+  paymentMethod: { channel: string; data: object };
 };
 
 type ExpiredOrder = BaseOrder & {
