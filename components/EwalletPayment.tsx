@@ -7,6 +7,7 @@ import {
   useAccordionContext,
 } from "./Accordion";
 import { EwalletRedirection } from "./EwalletRedirection";
+import { ChannelDana } from "./icons/ChannelDana";
 import { ChannelLinkaja } from "./icons/ChannelLinkaja";
 import { ChannelOvo } from "./icons/ChannelOvo";
 import { OvoPayment } from "./OvoPayment";
@@ -16,6 +17,7 @@ export { EwalletPayment };
 
 const CHANNELS = [
   { key: "OVO", label: "OVO", icon: ChannelOvo },
+  { key: "DANA", label: "Dana", icon: ChannelDana },
   { key: "LINKAJA", label: "LinkAja!", icon: ChannelLinkaja },
 ];
 
@@ -66,6 +68,7 @@ const Ewallet: FC<EwalletProps> = ({ channel }) => {
             case "OVO":
               return <OvoPayment />;
             case "LINKAJA":
+            case "DANA":
               return (
                 <EwalletRedirection
                   channelKey={channel.key}
