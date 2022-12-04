@@ -5,9 +5,13 @@ export { setOrderPaidByEwallet };
 
 const setOrderPaidByEwallet = async (
   order: PendingOrder,
-  channel: string,
   callbackData: any
 ) => {
+  const channel = (callbackData.data.channel_code as string)
+    .split("_")
+    .slice(1)
+    .join("_");
+
   const { data: paidOrder } = await pbApi.patch<PaidOrder>(
     `/api/collections/orders/records/${order.id}`,
     {

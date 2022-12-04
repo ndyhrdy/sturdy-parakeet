@@ -10,6 +10,7 @@ const paymentChannels = [
   "ALFAMART",
   "INDOMARET",
   "OVO",
+  "LINKAJA",
 ] as const;
 
 type PaymentChannel = typeof paymentChannels[number];
@@ -34,6 +35,8 @@ const getPaymentChannelLabel = (channel: PaymentChannel): string => {
       return "Retail Outlet – Indomaret";
     case "OVO":
       return "E-wallet – OVO";
+    case "LINKAJA":
+      return "E-wallet – LinkAja!";
     default:
       return "N/A";
   }

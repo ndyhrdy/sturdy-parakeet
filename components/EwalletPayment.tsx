@@ -6,13 +6,18 @@ import {
   AccordionItemHeader,
   useAccordionContext,
 } from "./Accordion";
+import { EwalletRedirection } from "./EwalletRedirection";
+import { ChannelLinkaja } from "./icons/ChannelLinkaja";
 import { ChannelOvo } from "./icons/ChannelOvo";
 import { OvoPayment } from "./OvoPayment";
 import { usePaymentContext } from "./Payment";
 
 export { EwalletPayment };
 
-const CHANNELS = [{ key: "OVO", label: "OVO", icon: ChannelOvo }];
+const CHANNELS = [
+  { key: "OVO", label: "OVO", icon: ChannelOvo },
+  { key: "LINKAJA", label: "LinkAja!", icon: ChannelLinkaja },
+];
 
 const EwalletPayment: FC = () => {
   const { locked } = usePaymentContext();
@@ -43,7 +48,7 @@ const Ewallet: FC<EwalletProps> = ({ channel }) => {
         <div className="flex-1 flex items-center space-x-3">
           <div className="w-16 p-1 flex">
             <channel.icon
-              className={`max-h-4 ${selected ? "text-teal-500" : ""}`}
+              className={`max-h-6 ${selected ? "text-teal-500" : ""}`}
             />
           </div>
           <span
@@ -60,6 +65,13 @@ const Ewallet: FC<EwalletProps> = ({ channel }) => {
           switch (channel.key) {
             case "OVO":
               return <OvoPayment />;
+            case "LINKAJA":
+              return (
+                <EwalletRedirection
+                  channelKey={channel.key}
+                  channelLabel={channel.label}
+                />
+              );
             default:
               return null;
           }
