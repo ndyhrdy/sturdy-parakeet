@@ -11,6 +11,7 @@ import { BankTransfer } from "./icons/BankTransfer";
 import { CreditCardPayment } from "./CreditCardPayment";
 import { CreditCard } from "./icons/CreditCard";
 import { Ewallet } from "./icons/Ewallet";
+import { EwalletPayment } from "./EwalletPayment";
 import { RetailOutlet } from "./icons/RetailOutlet";
 import { RetailOutletPayment } from "./RetailOutletPayment";
 import { VirtualAccountPayment } from "./VirtualAccountPayment";
@@ -116,6 +117,8 @@ const Payment: FC<Props> = ({ order }) => {
                 return <VirtualAccountPayment />;
               case "OVER_THE_COUNTER":
                 return <RetailOutletPayment />;
+              case "EWALLET":
+                return <EwalletPayment />;
               default:
                 return null;
             }
@@ -141,7 +144,7 @@ const PaymentMethodSelector: FC = () => {
         const containerWidth = scrollerRef.getBoundingClientRect().width;
         const totalScrollableDistance =
           scrollerRef.scrollWidth - containerWidth;
-        if (totalScrollableDistance <= containerWidth) {
+        if (totalScrollableDistance === 0) {
           setScrollableDistance({ left: 0, right: 0 });
           return;
         }
@@ -155,8 +158,10 @@ const PaymentMethodSelector: FC = () => {
       };
       handleScrolled();
       scrollerRef.addEventListener("scroll", handleScrolled);
+      window.addEventListener("resize", handleScrolled);
       return () => {
         scrollerRef.removeEventListener("scroll", handleScrolled);
+        window.removeEventListener("resize", handleScrolled);
       };
     }
   }, []);
