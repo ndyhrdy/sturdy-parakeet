@@ -1,0 +1,11 @@
+[build]
+publish = "dist/client/"
+command = "yarn build"
+
+[functions]
+directory = "server/"
+
+[[redirects]]
+from = "/*"
+to = "/.netlify/functions/index"
+status = 200
