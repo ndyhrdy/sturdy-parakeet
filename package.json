@@ -1,4 +1,10 @@
 {
+  "name": "xendit-checkout-demo",
+  "author": {
+    "name": "Endy Hardy",
+    "email": "endy.hardy@outlook.com",
+    "url": "https://endyhardy.me"
+  },
   "scripts": {
     "dev": "npm run server",
     "prod": "npm run build && npm run server:prod",
