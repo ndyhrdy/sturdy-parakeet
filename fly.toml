@@ -7,8 +7,8 @@ processes = []
 
 [env]
   PORT = 8080
-  VITE_BASE_URL = "https://xendit-checkout-demo-app.fly.dev"
-  VITE_API_BASE_URL = "https://xendit-checkout-demo-app.fly.dev/api"
+  VITE_BASE_URL = "https://xendit-checkout.endyhardy.me"
+  VITE_API_BASE_URL = "https://xendit-checkout.endyhardy.me/api"
   VITE_POCKETBASE_BASE_URL = "https://xendit-checkout-demo-pb.fly.dev"
 
 [experimental]

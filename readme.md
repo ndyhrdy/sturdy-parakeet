@@ -1,6 +1,6 @@
 # Xendit Checkout Demo
 
-This project demonstrates checkout page integration with Xendit using React with Vite SSR. Head over to the deployed site here: https://xendit-checkout-demo-app.fly.dev. This project was bootstrapped using vite-plugin-ssr create app script: `yarn create vite-plugin-ssr`.
+This project demonstrates checkout page integration with Xendit using React with Vite SSR. Head over to the deployed site here: https://xendit-checkout.endyhardy.me. This project was bootstrapped using vite-plugin-ssr create app script: `yarn create vite-plugin-ssr`.
 
 ## Tech Stack
 
