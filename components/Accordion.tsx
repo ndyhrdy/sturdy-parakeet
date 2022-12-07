@@ -89,7 +89,7 @@ const AccordionItem: FC<AccordionItemProps> = ({ children, id }) => {
   return (
     <AccordionItemContext.Provider value={{ id }}>
       <li
-        className={`overflow-hidden border-2 dark:border-stone-800 ${
+        className={`overflow-hidden border-2 border-stone-200 dark:border-stone-800 ${
           selected || isInitial ? "rounded-xl" : "rounded-lg"
         }`}
       >
@@ -118,9 +118,13 @@ const AccordionItemHeader: FC<AccordionItemHeaderProps> = ({ children }) => {
       disabled={disabled}
       className={`w-full text-left flex items-center justify-between px-6 transition-all duration-300 dark:bg-stone-800 ${
         selected || isInitial ? "h-16" : "h-10"
-      } ${!selected && !disabled ? "dark:hover:bg-stone-700" : ""} ${
-        disabled ? "cursor-not-allowed" : ""
-      }`}
+      } ${
+        !selected && !disabled
+          ? "hover:bg-stone-200 dark:hover:bg-stone-700"
+          : ""
+      }
+      ${selected ? "bg-stone-200" : "bg-stone-50"}
+      ${disabled ? "cursor-not-allowed" : ""}`}
     >
       {children}
     </button>

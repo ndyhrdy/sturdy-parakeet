@@ -50,12 +50,16 @@ const Ewallet: FC<EwalletProps> = ({ channel }) => {
         <div className="flex-1 flex items-center space-x-3">
           <div className="w-16 p-1 flex">
             <channel.icon
-              className={`max-h-6 ${selected ? "text-teal-500" : ""}`}
+              className={`max-h-6 ${
+                selected
+                  ? "text-teal-500"
+                  : "text-stone-600 dark:text-stone-400"
+              }`}
             />
           </div>
           <span
-            className={`font-semibold transition-all duration-300 ${
-              selected ? "text-lg" : "text-stone-300"
+            className={`text-stone-600 font-semibold transition-all duration-300 ${
+              selected ? "dark:text-stone-100 text-lg" : "dark:text-stone-300"
             }`}
           >
             {channel.label}

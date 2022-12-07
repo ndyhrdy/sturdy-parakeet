@@ -16,7 +16,6 @@ const CreditCard: FC<SVGProps<SVGSVGElement>> = (props) => {
       ></path>
       <path d="M29 12H3v4h26v-4z" fill="currentColor"></path>
       <path d="M6 20h8" stroke="currentColor" strokeLinecap="round"></path>
-      <path d="M26 17h-5v5h5v-5z" fill="#222"></path>
       <path d="M25.5 17.5h-4v4h4v-4z" stroke="currentColor"></path>
     </svg>
   );

@@ -1,11 +1,19 @@
 import { Moon, Sun } from "@styled-icons/feather";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { PageContextProvider } from "./usePageContext";
 import type { PageContext } from "./types";
 import "../styles/index.css";
 
-export { PageShell };
+export { PageShell, useApp };
+
+type AppContextValues = { darkMode: boolean };
+
+const AppContext = createContext<AppContextValues>({
+  darkMode: false,
+});
+
+const useApp = () => useContext(AppContext);
 
 const PageShell = ({
   children,
@@ -52,24 +60,26 @@ const PageShell = ({
   return (
     <React.StrictMode>
       <PageContextProvider pageContext={pageContext}>
-        <div className={`${darkMode ? "dark" : ""}`}>
-          <div className="bg-gradient-to-br from-stone-100 via-stone-50 to-stone-50 dark:from-stone-800 dark:via-stone-900 dark:to-stone-900 min-h-screen antialiased text-stone-900 dark:text-stone-100">
-            {children}
+        <AppContext.Provider value={{ darkMode }}>
+          <div className={`${darkMode ? "dark" : ""}`}>
+            <div className="bg-gradient-to-br from-stone-100 via-stone-50 to-stone-50 dark:from-stone-800 dark:via-stone-900 dark:to-stone-900 min-h-screen antialiased text-stone-900 dark:text-stone-100">
+              {children}
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setDarkMode(!darkMode);
+              }}
+              className="fixed top-3 right-3 h-12 w-12 rounded-xl shadow-md bg-stone-100 dark:bg-stone-800 hover:bg-white dark:hover:bg-stone-700 text-yellow-500 dark:text-stone-200 transition-colors"
+            >
+              {darkMode ? (
+                <Moon strokeWidth={2} size={24} />
+              ) : (
+                <Sun strokeWidth={2} size={24} />
+              )}
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              setDarkMode(!darkMode);
-            }}
-            className="fixed top-3 right-3 h-12 w-12 rounded-xl shadow-md bg-stone-100 dark:bg-stone-800 hover:bg-white dark:hover:bg-stone-700 text-yellow-500 dark:text-stone-200 transition-colors"
-          >
-            {darkMode ? (
-              <Moon strokeWidth={2} size={24} />
-            ) : (
-              <Sun strokeWidth={2} size={24} />
-            )}
-          </button>
-        </div>
+        </AppContext.Provider>
       </PageContextProvider>
     </React.StrictMode>
   );

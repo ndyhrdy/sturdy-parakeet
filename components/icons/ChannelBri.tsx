@@ -1,8 +1,11 @@
 import React, { FC, SVGProps } from "react";
+import { useApp } from "../../renderer/PageShell";
 
 export { ChannelBri };
 
 const ChannelBri: FC<SVGProps<SVGSVGElement>> = (props) => {
+  const { darkMode } = useApp();
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +69,7 @@ const ChannelBri: FC<SVGProps<SVGSVGElement>> = (props) => {
               <path
                 d="m 0,0 5.432,0 c 2.2,0 3.84,-0.964 3.84,-2.995 0,-1.489 -0.761,-2.318 -2.081,-2.758 l 0,-0.034 c 1.574,-0.322 2.386,-1.168 2.386,-2.606 0,-2.826 -2.488,-3.418 -4.603,-3.418 L 0,-11.811 0,0 Z m 3.147,-4.671 0.88,0 c 1.032,0 2.099,0.254 2.099,1.253 0,1.082 -1.016,1.184 -2.066,1.184 l -0.913,0 0,-2.437 z m 0,-4.907 0.931,0 c 1.151,0 2.352,0.17 2.352,1.371 0,1.286 -1.235,1.404 -2.319,1.404 l -0.964,0 0,-2.775 z"
                 style={{
-                  fill: "#fff",
+                  fill: darkMode ? "#fff" : "rgb(87 83 78)",
                   fillOpacity: 1,
                   fillRule: "nonzero",
                   stroke: "none",
@@ -83,7 +86,7 @@ const ChannelBri: FC<SVGProps<SVGSVGElement>> = (props) => {
           <path
             d="m 0,0 3.858,0 4.552,-11.811 -3.452,0 -0.88,2.521 -4.433,0 -0.931,-2.521 -3.198,0 L 0,0 Z m 1.929,-2.437 -0.034,0 -1.523,-4.62 2.962,0 -1.405,4.62 z"
             style={{
-              fill: "#fff",
+              fill: darkMode ? "#fff" : "rgb(87 83 78)",
               fillOpacity: 1,
               fillRule: "nonzero",
               stroke: "none",
@@ -98,7 +101,7 @@ const ChannelBri: FC<SVGProps<SVGSVGElement>> = (props) => {
           <path
             d="m 0,0 4.01,0 3.994,-8.021 0.033,0 -0.05,8.021 2.877,0 0,-11.811 -3.91,0 -4.128,8.072 -0.033,0 0.1,-8.072 -2.893,0 L 0,0 Z"
             style={{
-              fill: "#fff",
+              fill: darkMode ? "#fff" : "rgb(87 83 78)",
               fillOpacity: 1,
               fillRule: "nonzero",
               stroke: "none",
@@ -113,7 +116,7 @@ const ChannelBri: FC<SVGProps<SVGSVGElement>> = (props) => {
           <path
             d="m 0,0 3.147,0 0,-4.823 0.034,0 3.553,4.823 3.79,0 -4.365,-5.499 4.704,-6.312 -4.011,0 -3.671,5.364 -0.034,0 0,-5.364 -3.147,0 L 0,0 Z"
             style={{
-              fill: "#fff",
+              fill: darkMode ? "#fff" : "rgb(87 83 78)",
               fillOpacity: 1,
               fillRule: "nonzero",
               stroke: "none",
@@ -130,7 +133,7 @@ const ChannelBri: FC<SVGProps<SVGSVGElement>> = (props) => {
               <path
                 d="m 0,0 5.432,0 c 2.199,0 3.841,-0.964 3.841,-2.995 0,-1.489 -0.761,-2.318 -2.081,-2.758 l 0,-0.034 c 1.574,-0.322 2.385,-1.168 2.385,-2.606 0,-2.826 -2.487,-3.418 -4.602,-3.418 L 0,-11.811 0,0 Z m 3.147,-4.671 0.88,0 c 1.033,0 2.098,0.254 2.098,1.253 0,1.082 -1.014,1.184 -2.064,1.184 l -0.914,0 0,-2.437 z m 0,-4.907 0.931,0 c 1.15,0 2.352,0.17 2.352,1.371 0,1.286 -1.235,1.404 -2.318,1.404 l -0.965,0 0,-2.775 z"
                 style={{
-                  fill: "#fff",
+                  fill: darkMode ? "#fff" : "rgb(87 83 78)",
                   fillOpacity: 1,
                   fillRule: "nonzero",
                   stroke: "none",
@@ -142,7 +145,7 @@ const ChannelBri: FC<SVGProps<SVGSVGElement>> = (props) => {
               <path
                 d="m 0,0 5.618,0 c 2.098,0 3.807,-0.948 3.807,-2.979 0,-1.573 -0.744,-2.622 -2.267,-2.977 l 0,-0.034 C 8.172,-6.261 8.24,-7.158 8.833,-8.596 l 1.15,-3.215 -3.282,0 -0.677,2.131 c -0.643,2.031 -1.05,2.54 -2.217,2.54 l -0.66,0 0,-4.671 -3.147,0 L 0,0 Z m 3.147,-4.907 0.829,0 c 1.016,0 2.302,0.034 2.302,1.371 0,1.099 -1.1,1.302 -2.302,1.302 l -0.829,0 0,-2.673 z"
                 style={{
-                  fill: "#fff",
+                  fill: darkMode ? "#fff" : "rgb(87 83 78)",
                   fillOpacity: 1,
                   fillRule: "nonzero",
                   stroke: "none",
@@ -155,7 +158,7 @@ const ChannelBri: FC<SVGProps<SVGSVGElement>> = (props) => {
         <path
           d="m -495.2449,16.202874 3.93375,0 0,14.76375 -3.93375,0 0,-14.76375 z"
           style={{
-            fill: "#fff",
+            fill: darkMode ? "#fff" : "rgb(87 83 78)",
             fillOpacity: 1,
             fillRule: "nonzero",
             stroke: "none",

@@ -141,7 +141,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
             value={values.cardNumber}
             onChange={handleChange}
             disabled={busy}
-            className="h-10 px-3 rounded-md dark:bg-stone-800 focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
+            className="h-10 px-3 rounded-md dark:bg-stone-800 border dark:border-none focus:border-transparent focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
             placeholder="4000 0000 0000 1091"
             autoFocus
           />
@@ -161,7 +161,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
             value={values.validThru}
             onChange={handleChange}
             disabled={busy}
-            className="h-10 px-3 rounded-md dark:bg-stone-800 focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
+            className="h-10 px-3 rounded-md dark:bg-stone-800 border dark:border-none focus:border-transparent focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
             placeholder="12/34"
           />
           {!!errors.validThru && (
@@ -180,7 +180,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
             value={values.cvv}
             onChange={handleChange}
             disabled={busy}
-            className="h-10 px-3 rounded-md dark:bg-stone-800 focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
+            className="h-10 px-3 rounded-md dark:bg-stone-800 border dark:border-none focus:border-transparent focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
             placeholder="123"
           />
           {!!errors.cvv && <p className="text-xs text-red-500">{errors.cvv}</p>}

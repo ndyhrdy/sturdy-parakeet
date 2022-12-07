@@ -1,8 +1,11 @@
 import React, { FC, SVGProps } from "react";
+import { useApp } from "../../renderer/PageShell";
 
 export { ChannelBni };
 
 const ChannelBni: FC<SVGProps<SVGSVGElement>> = (props) => {
+  const { darkMode } = useApp();
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +101,7 @@ const ChannelBni: FC<SVGProps<SVGSVGElement>> = (props) => {
         />
         <path
           style={{
-            fill: "#fff",
+            fill: darkMode ? "#fff" : "rgb(87 83 78)",
             fillOpacity: 1,
             fillRule: "evenodd",
             stroke: "none",
@@ -112,7 +115,7 @@ const ChannelBni: FC<SVGProps<SVGSVGElement>> = (props) => {
         />
         <path
           style={{
-            fill: "#fff",
+            fill: darkMode ? "#fff" : "rgb(87 83 78)",
             fillOpacity: 1,
             fillRule: "evenodd",
             stroke: "none",
@@ -127,7 +130,7 @@ const ChannelBni: FC<SVGProps<SVGSVGElement>> = (props) => {
         <path
           id="channelBni-path3283"
           style={{
-            fill: "#fff",
+            fill: darkMode ? "#fff" : "rgb(87 83 78)",
             fillOpacity: 1,
             fillRule: "evenodd",
             stroke: "none",

@@ -1,8 +1,11 @@
 import React, { FC, SVGProps } from "react";
+import { useApp } from "../../renderer/PageShell";
 
 export { ChannelAlfamart };
 
 const ChannelAlfamart: FC<SVGProps<SVGSVGElement>> = (props) => {
+  const { darkMode } = useApp();
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +21,7 @@ const ChannelAlfamart: FC<SVGProps<SVGSVGElement>> = (props) => {
           <path
             id="channelAlfamart-path6131"
             style={{
-              fill: "#fff",
+              fill: darkMode ? "#fff" : "rgb(87 83 78)",
               fillOpacity: 1,
               fillRule: "nonzero",
               stroke: "none",
@@ -29,7 +32,7 @@ const ChannelAlfamart: FC<SVGProps<SVGSVGElement>> = (props) => {
           <path
             id="channelAlfamart-path6133"
             style={{
-              fill: "#fff",
+              fill: darkMode ? "#fff" : "rgb(87 83 78)",
               fillOpacity: 1,
               fillRule: "nonzero",
               stroke: "none",
@@ -40,7 +43,7 @@ const ChannelAlfamart: FC<SVGProps<SVGSVGElement>> = (props) => {
           <path
             id="channelAlfamart-path6135"
             style={{
-              fill: "#fff",
+              fill: darkMode ? "#fff" : "rgb(87 83 78)",
               fillOpacity: 1,
               fillRule: "nonzero",
               stroke: "none",
@@ -51,7 +54,7 @@ const ChannelAlfamart: FC<SVGProps<SVGSVGElement>> = (props) => {
           <path
             id="channelAlfamart-path6137"
             style={{
-              fill: "#fff",
+              fill: darkMode ? "#fff" : "rgb(87 83 78)",
               fillOpacity: 1,
               fillRule: "nonzero",
               stroke: "none",
@@ -62,7 +65,7 @@ const ChannelAlfamart: FC<SVGProps<SVGSVGElement>> = (props) => {
           <path
             id="channelAlfamart-path6139"
             style={{
-              fill: "#fff",
+              fill: darkMode ? "#fff" : "rgb(87 83 78)",
               fillOpacity: 1,
               fillRule: "nonzero",
               stroke: "none",

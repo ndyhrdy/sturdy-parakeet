@@ -79,19 +79,19 @@ const RetailOutletDetails: FC<Props> = ({ roName }) => {
       <>
         <div className="p-6 flex flex-col space-y-3">
           <div>
-            <h3 className="uppercase font-semibold text-sm dark:text-stone-500 mb-1">
+            <h3 className="uppercase font-semibold text-sm text-stone-500 mb-1">
               Pay to Merchant
             </h3>
             <div className="text-xl">{paymentCode.name}</div>
           </div>
           <div>
-            <h3 className="uppercase font-semibold text-sm dark:text-stone-500 mb-1">
+            <h3 className="uppercase font-semibold text-sm text-stone-500 mb-1">
               Payment Code
             </h3>
             <div className="text-xl">{paymentCode.payment_code}</div>
           </div>
           <div>
-            <h3 className="uppercase font-semibold text-sm dark:text-stone-500 mb-1">
+            <h3 className="uppercase font-semibold text-sm text-stone-500 mb-1">
               Amount to Pay
             </h3>
             <div className="text-xl">
@@ -102,10 +102,10 @@ const RetailOutletDetails: FC<Props> = ({ roName }) => {
             </div>
           </div>
         </div>
-        <h3 className="sticky top-0 px-6 py-2 uppercase font-semibold text-sm dark:bg-stone-800 dark:text-stone-200 mb-3">
+        <h3 className="sticky top-0 px-6 py-2 uppercase font-semibold text-sm bg-stone-200 dark:bg-stone-800 dark:text-stone-200 mb-3">
           Instructions
         </h3>
-        <ReactMarkdown className="px-6 pb-6 prose-sm prose-headings:font-semibold dark:prose-code:bg-teal-800 prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-ol:list-decimal">
+        <ReactMarkdown className="px-6 pb-6 prose-sm prose-headings:font-semibold prose-code:bg-teal-100 dark:prose-code:bg-teal-800 prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-ol:list-decimal">
           {instructions}
         </ReactMarkdown>
       </>

@@ -168,7 +168,7 @@ const PaymentMethodSelector: FC = () => {
 
   return (
     <div className="relative">
-      <div ref={scroller} className="overflow-x-hidden relative">
+      <div ref={scroller} className="overflow-x-hidden relative py-2">
         <ul className="flex px-5">
           {PAYMENT_METHODS.map((paymentMethod) => {
             const isSelected = selectedMethod === paymentMethod.key;
@@ -237,12 +237,12 @@ const PaymentMethodSelector: FC = () => {
       )}
       {scrollableDistance.right > 0 && (
         <div
-          className="absolute right-0 inset-y-0 w-24 bg-gradient-to-r from-transparent dark:via-stone-900 dark:to-stone-900 flex justify-center items-center"
+          className="absolute right-0 inset-y-0 w-24 bg-gradient-to-r from-transparent via-stone-50 dark:via-stone-900 to-stone-50 dark:to-stone-900 flex justify-center items-center"
           style={{ opacity: scrollableDistance.right }}
         >
           <button
             type="button"
-            className="w-12 h-12 rounded-full dark:bg-stone-800 hover:dark:bg-stone-700 shadow-lg flex justify-center items-center text-3xl dark:text-stone-500 hover:dark:text-stone-100 transition-colors"
+            className="w-12 h-12 rounded-full bg-stone-50 dark:bg-stone-800 hover:bg-white hover:dark:bg-stone-700 shadow-lg flex justify-center items-center text-3xl dark:text-stone-500 hover:dark:text-stone-100 transition-colors"
             onClick={() => {
               if (scroller.current) {
                 scroller.current.scroll({

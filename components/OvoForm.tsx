@@ -50,7 +50,7 @@ const OvoForm = () => {
           value={values.phone}
           onChange={handleChange}
           disabled={locked}
-          className="h-10 px-3 rounded-md dark:bg-stone-800 focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
+          className="h-10 px-3 rounded-md dark:bg-stone-800 border dark:border-none focus:border-transparent focus:ring-2 ring-teal-500 outline-none dark:placeholder:text-stone-500"
           autoFocus
         />
         {!!errors.phone && (

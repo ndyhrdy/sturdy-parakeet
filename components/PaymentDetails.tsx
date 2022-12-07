@@ -44,7 +44,7 @@ const PaymentDetails: FC<Props> = ({ ...order }) => {
       <p className="mb-6">
         We have successfully received your payment for this order.
       </p>
-      <h2 className="uppercase font-semibold text-sm dark:text-stone-500 mb-3">
+      <h2 className="uppercase font-semibold text-sm text-stone-500 mb-3">
         Payment Details
       </h2>
       <ul className="space-y-2 mb-12">
