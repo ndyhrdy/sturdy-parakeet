@@ -38,9 +38,7 @@ async function render(pageContext: PageContextServer) {
         <script type="text/javascript" src="https://js.xendit.co/v1/xendit.min.js"></script>
       </head>
       <body>
-        <div id="page-view" class="dark">${dangerouslySkipEscape(
-          pageHtml
-        )}</div>
+        <div id="page-view">${dangerouslySkipEscape(pageHtml)}</div>
       </body>
     </html>`;
 
