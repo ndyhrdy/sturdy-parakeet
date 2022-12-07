@@ -1,6 +1,5 @@
-import moment from "moment";
 import React, { FC, useCallback, useState } from "react";
-import { pb } from "../../helpers/pocketbase";
+import { api } from "../../helpers/api";
 
 export { Page, getDocumentProps };
 
@@ -12,13 +11,7 @@ const Page: FC = () => {
     }
     setBusy(true);
     try {
-      const orderData = {
-        amount: 500_000,
-        expiry: moment().add(1, "day").toISOString(),
-        status: "PENDING",
-      };
-
-      const order = await pb.collection("orders").create(orderData);
+      const { data: order } = await api.post<PendingOrder>("/orders");
       window.location.href = `/pay/${order.id}`;
     } catch (error) {
       setBusy(false);

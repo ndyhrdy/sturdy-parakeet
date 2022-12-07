@@ -1,4 +1,5 @@
 import { Request, Response, Router } from "express";
+import { pbApi } from "../../helpers/pocketbase-server";
 import { chargeOrder } from "../fx/chargeOrder";
 import { getPendingOrder } from "../fx/getPendingOrder";
 import { setOrderPaidByCreditCard } from "../fx/setOrderPaidByCreditCard";
@@ -12,7 +13,7 @@ chargeController.post("/:orderId", async (req: Request, res: Response) => {
 
   let order: PendingOrder;
   try {
-    order = await getPendingOrder(orderId);
+    order = await getPendingOrder(pbApi(req.pbAdminToken), orderId);
   } catch (error) {
     res.status(404).send();
     return;
@@ -20,7 +21,11 @@ chargeController.post("/:orderId", async (req: Request, res: Response) => {
 
   try {
     const chargeResponse = await chargeOrder(order, req.body.token);
-    await setOrderPaidByCreditCard(order, chargeResponse);
+    await setOrderPaidByCreditCard(
+      pbApi(req.pbAdminToken),
+      order,
+      chargeResponse
+    );
   } catch (error) {
     res.status(500).send("Failed to charge credit card. Please try again.");
     return;

@@ -3,6 +3,7 @@ import _ from "lodash";
 import { createEwalletRedirectionCharge } from "../fx/createEwalletRedirectionCharge";
 import { createOvoCharge } from "../fx/createOvoCharge";
 import { getPendingOrder } from "../fx/getPendingOrder";
+import { pbApi } from "../../helpers/pocketbase-server";
 import { setOrderPaidByEwallet } from "../fx/setOrderPaidByEwallet";
 
 export { ewalletController };
@@ -14,14 +15,14 @@ ewalletController.post("/callback", async (req: Request, res: Response) => {
 
   let order: PendingOrder;
   try {
-    order = await getPendingOrder(orderId);
+    order = await getPendingOrder(pbApi(req.pbAdminToken), orderId);
   } catch (error) {
     res.status(404).send();
     return;
   }
 
   try {
-    await setOrderPaidByEwallet(order, req.body);
+    await setOrderPaidByEwallet(pbApi(req.pbAdminToken), order, req.body);
   } catch (error) {
     console.log(error);
     res.status(500).send();
@@ -35,7 +36,7 @@ ewalletController.post("/:orderId/ovo", async (req: Request, res: Response) => {
 
   let order: PendingOrder;
   try {
-    order = await getPendingOrder(orderId);
+    order = await getPendingOrder(pbApi(req.pbAdminToken), orderId);
   } catch (error) {
     res.status(404).send();
     return;
@@ -59,7 +60,7 @@ ewalletController.post(
 
     let order: PendingOrder;
     try {
-      order = await getPendingOrder(orderId);
+      order = await getPendingOrder(pbApi(req.pbAdminToken), orderId);
     } catch (error) {
       res.status(404).send();
       return;

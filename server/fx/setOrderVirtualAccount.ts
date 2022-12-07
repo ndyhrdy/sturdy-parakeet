@@ -1,8 +1,9 @@
-import { pbApi } from "../../helpers/pocketbase-server";
+import { AxiosInstance } from "axios";
 
 export { setOrderVirtualAccount };
 
 const setOrderVirtualAccount = async (
+  pbApi: AxiosInstance,
   order: PendingOrder,
   bankCode: string,
   virtualAccount: object

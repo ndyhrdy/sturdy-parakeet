@@ -2,14 +2,23 @@ import * as dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 import { renderPage } from "vite-plugin-ssr";
-import express from "express";
+import express, { NextFunction } from "express";
 import compression from "compression";
 import bodyParser from "body-parser";
 
 import { router as apiRouter } from "./routes/api";
+import { authenticatePbAdmin } from "./fx/authenticatePbAdmin";
 
 const isProduction = process.env.NODE_ENV === "production";
 const root = `${__dirname}/..`;
+
+declare global {
+  namespace Express {
+    export interface Request {
+      pbAdminToken: string;
+    }
+  }
+}
 
 startServer();
 
@@ -34,7 +43,13 @@ async function startServer() {
     app.use(viteDevMiddleware);
   }
 
-  app.use("/api", jsonParser, apiRouter);
+  const pbAdminToken = await authenticatePbAdmin();
+  const pbAdminTokenInjector = (req: any, _: any, next: NextFunction) => {
+    (req as any).pbAdminToken = pbAdminToken;
+    next();
+  };
+
+  app.use("/api", jsonParser, pbAdminTokenInjector, apiRouter);
 
   app.use(express.static("public"));
 

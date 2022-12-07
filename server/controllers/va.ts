@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { createVirtualAccount } from "../fx/createVirtualAccount";
 import { getPendingOrder } from "../fx/getPendingOrder";
+import { pbApi } from "../../helpers/pocketbase-server";
 import { setOrderPaidByVirtualAccount } from "../fx/setOrderPaidByVirtualAccount";
 import { setOrderVirtualAccount } from "../fx/setOrderVirtualAccount";
 
@@ -13,14 +14,18 @@ vaController.post("/callback", async (req: Request, res: Response) => {
 
   let order: PendingOrder;
   try {
-    order = await getPendingOrder(orderId);
+    order = await getPendingOrder(pbApi(req.pbAdminToken), orderId);
   } catch (error) {
     res.status(404).send();
     return;
   }
 
   try {
-    await setOrderPaidByVirtualAccount(order, req.body);
+    await setOrderPaidByVirtualAccount(
+      pbApi(req.pbAdminToken),
+      order,
+      req.body
+    );
   } catch (error) {
     res.status(500).send();
     return;
@@ -33,7 +38,7 @@ vaController.post("/:orderId", async (req: Request, res: Response) => {
 
   let order: PendingOrder;
   try {
-    order = await getPendingOrder(orderId);
+    order = await getPendingOrder(pbApi(req.pbAdminToken), orderId);
   } catch (error) {
     res.status(404).send();
     return;
@@ -50,7 +55,12 @@ vaController.post("/:orderId", async (req: Request, res: Response) => {
       order,
       bankCode
     );
-    await setOrderVirtualAccount(order, bankCode, createVirtualAccountResponse);
+    await setOrderVirtualAccount(
+      pbApi(req.pbAdminToken),
+      order,
+      bankCode,
+      createVirtualAccountResponse
+    );
   } catch (error) {
     res.status(500).send("Failed to create virtual account. Please try again.");
     return;

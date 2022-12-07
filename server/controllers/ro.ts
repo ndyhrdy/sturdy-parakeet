@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { createPaymentCode } from "../fx/createPaymentCode";
 import { getPendingOrder } from "../fx/getPendingOrder";
+import { pbApi } from "../../helpers/pocketbase-server";
 import { setOrderPaidByPaymentCode } from "../fx/setOrderPaidByPaymentCode";
 import { setOrderPaymentCode } from "../fx/setOrderPaymentCode";
 
@@ -13,14 +14,14 @@ roController.post("/callback", async (req: Request, res: Response) => {
 
   let order: PendingOrder;
   try {
-    order = await getPendingOrder(orderId);
+    order = await getPendingOrder(pbApi(req.pbAdminToken), orderId);
   } catch (error) {
     res.status(404).send();
     return;
   }
 
   try {
-    await setOrderPaidByPaymentCode(order, req.body);
+    await setOrderPaidByPaymentCode(pbApi(req.pbAdminToken), order, req.body);
   } catch (error) {
     res.status(500).send();
     return;
@@ -33,7 +34,7 @@ roController.post("/:orderId", async (req: Request, res: Response) => {
 
   let order: PendingOrder;
   try {
-    order = await getPendingOrder(orderId);
+    order = await getPendingOrder(pbApi(req.pbAdminToken), orderId);
   } catch (error) {
     res.status(404).send();
     return;
@@ -47,7 +48,12 @@ roController.post("/:orderId", async (req: Request, res: Response) => {
 
   try {
     const createPaymentCodeResponse = await createPaymentCode(order, roName);
-    await setOrderPaymentCode(order, roName, createPaymentCodeResponse);
+    await setOrderPaymentCode(
+      pbApi(req.pbAdminToken),
+      order,
+      roName,
+      createPaymentCodeResponse
+    );
   } catch (error) {
     res.status(500).send("Failed to create payment code. Please try again.");
     return;

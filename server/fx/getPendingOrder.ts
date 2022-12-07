@@ -1,8 +1,8 @@
-import { pbApi } from "../../helpers/pocketbase-server";
+import { AxiosInstance } from "axios";
 
 export { getPendingOrder };
 
-const getPendingOrder = async (orderId: string) => {
+const getPendingOrder = async (pbApi: AxiosInstance, orderId: string) => {
   const { data: order } = await pbApi.get<Order>(
     `/api/collections/orders/records/${orderId}`
   );

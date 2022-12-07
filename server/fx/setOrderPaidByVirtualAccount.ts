@@ -1,9 +1,10 @@
+import { AxiosInstance } from "axios";
 import moment from "moment";
-import { pbApi } from "../../helpers/pocketbase-server";
 
 export { setOrderPaidByVirtualAccount };
 
 const setOrderPaidByVirtualAccount = async (
+  pbApi: AxiosInstance,
   order: PendingOrder,
   callbackData: any
 ) => {
