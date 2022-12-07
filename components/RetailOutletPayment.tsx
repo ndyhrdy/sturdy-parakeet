@@ -54,7 +54,7 @@ const RetailOutlet: FC<RetailOutletProps> = ({ channel }) => {
             />
           </div>
           <span
-            className={`text-stone-600 font-semibold transition-all duration-300 ${
+            className={`text-stone-600 font-semibold transition-all duration-300 line-clamp-1 ${
               selected ? "dark:text-stone-100 text-lg" : "dark:text-stone-300"
             }`}
           >

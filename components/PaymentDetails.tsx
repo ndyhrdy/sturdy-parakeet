@@ -37,11 +37,11 @@ const PaymentDetails: FC<Props> = ({ ...order }) => {
   }, [order]);
 
   return (
-    <div className="px-6">
-      <h1 className="font-semibold text-3xl mb-2">
+    <div className="px-6 pt-24 lg:py-0">
+      <h1 className="font-semibold text-3xl mb-2 text-center lg:text-left">
         Thank you for your payment!
       </h1>
-      <p className="mb-6">
+      <p className="mb-6 text-center lg:text-left">
         We have successfully received your payment for this order.
       </p>
       <h2 className="uppercase font-semibold text-sm text-stone-500 mb-3">
@@ -51,13 +51,13 @@ const PaymentDetails: FC<Props> = ({ ...order }) => {
         {details.map(({ label, value }) => {
           return (
             <li key={label} className="flex -mx-1">
-              <div className="px-1 w-1/3">{label}</div>
-              <div className="px-1 w-2/3">{value}</div>
+              <div className="px-1 w-1/2 lg:w-1/3">{label}</div>
+              <div className="px-1 w-1/2 lg:w-2/3">{value}</div>
             </li>
           );
         })}
       </ul>
-      <p>
+      <p className="text-center lg:text-left">
         Click{" "}
         <Link
           href="/"

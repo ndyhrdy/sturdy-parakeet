@@ -182,7 +182,7 @@ const PaymentMethodSelector: FC = () => {
                       window.location.hash = `#${paymentMethod.key.toLocaleLowerCase()}`;
                     }
                   }}
-                  className={`w-32 h-24 p-3 shadow border-2 bg-white dark:bg-stone-800 rounded-lg flex flex-col items-center space-y-2 justify-end ${
+                  className={`w-28 lg:w-32 h-20 lg:h-24 p-2 lg:p-3 shadow border-2 bg-white dark:bg-stone-800 rounded-lg flex flex-col items-center space-y-2 justify-end ${
                     isSelected
                       ? "border-teal-500 dark:border-teal-600"
                       : "border-white dark:border-stone-800 dark:hover:border-stone-700 dark:hover:bg-stone-700 hover:shadow-md group transition-all"
@@ -195,14 +195,14 @@ const PaymentMethodSelector: FC = () => {
                         : "text-stone-400 dark:text-stone-400 group-hover:text-stone-600 dark:group-hover:text-stone-100"
                     }`}
                   >
-                    <paymentMethod.icon className="h-10 w-10" />
+                    <paymentMethod.icon className="h-8 lg:h-10 w-8 lg:w-10" />
                   </span>
                   <span
                     className={`${
                       isSelected
                         ? "text-teal-600 dark:text-teal-400"
                         : "text-stone-500 dark:text-stone-400 group-hover:text-stone-600 dark:group-hover:text-stone-100"
-                    } font-semibold transition-colors text-sm`}
+                    } font-semibold transition-colors text-xs lg:text-sm`}
                   >
                     {paymentMethod.label}
                   </span>
@@ -214,12 +214,12 @@ const PaymentMethodSelector: FC = () => {
       </div>
       {scrollableDistance.left > 0 && (
         <div
-          className="absolute left-0 inset-y-0 w-24 bg-gradient-to-l from-transparent dark:via-stone-900 dark:to-stone-900 flex justify-center items-center"
+          className="absolute left-0 inset-y-0 w-24 bg-gradient-to-l from-transparent via-stone-50 dark:via-stone-900 to-stone-50 dark:to-stone-900 flex justify-center items-center"
           style={{ opacity: scrollableDistance.left }}
         >
           <button
             type="button"
-            className="w-12 h-12 rounded-full dark:bg-stone-800 hover:dark:bg-stone-700 shadow-lg flex justify-center items-center text-3xl dark:text-stone-500 hover:dark:text-stone-100 transition-colors"
+            className="w-12 h-12 rounded-full bg-stone-50 dark:bg-stone-800 hover:bg-white hover:dark:bg-stone-700 shadow-lg flex justify-center items-center text-3xl dark:text-stone-500 hover:dark:text-stone-100 transition-colors"
             onClick={() => {
               if (scroller.current) {
                 scroller.current.scroll({

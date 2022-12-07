@@ -8,7 +8,7 @@ const MerchantDetails = () => {
   return (
     <Link
       href="/"
-      className="inline-flex self-start mb-12 items-center px-6 space-x-3 group"
+      className="hidden lg:inline-flex self-start mb-12 items-center px-6 space-x-3 group"
     >
       <div className="bg-teal-500 group-hover:bg-teal-600 w-14 h-14 rounded-xl flex justify-center items-center shadow-lg transition-colors">
         <img src={xenditLogo} alt="Xendit logo" />

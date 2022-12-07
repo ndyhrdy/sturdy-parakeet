@@ -6,7 +6,7 @@ type Props = BaseOrder;
 
 const OrderDetails: FC<Props> = ({ ...order }) => {
   return (
-    <div className="space-y-2 px-6">
+    <div className="flex flex-col items-center lg:items-start space-y-2 px-6 pt-24 lg:pt-0">
       <p className="text-stone-400 dark:text-stone-600">Hi! You need to pay</p>
       <p className="text-5xl font-semibold">
         {Intl.NumberFormat("id", {
