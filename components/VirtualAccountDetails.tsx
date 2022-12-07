@@ -16,6 +16,8 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
   const [instructions, setInstructions] = useState("");
 
   const [creatingVirtualAccount, setCreatingVirtualAccount] = useState(false);
+  const [attemptedCreatingVirtualAccount, setAttemptedCreatingVirtualAccount] =
+    useState(false);
 
   const { order } = usePaymentContext();
   const virtualAccount = order?.virtualAccounts?.[bankCode];
@@ -26,13 +28,16 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
     }
 
     setCreatingVirtualAccount(true);
+    setAttemptedCreatingVirtualAccount(true);
     await api.post(`/payment/va/${order?.id}`, { bankCode });
     setCreatingVirtualAccount(false);
   }, [bankCode, creatingVirtualAccount, virtualAccount]);
 
   useEffect(() => {
-    handleCreateVirtualAccount();
-  }, [handleCreateVirtualAccount]);
+    if (!attemptedCreatingVirtualAccount) {
+      handleCreateVirtualAccount();
+    }
+  }, [handleCreateVirtualAccount, attemptedCreatingVirtualAccount]);
 
   useEffect(() => {
     if (creatingVirtualAccount) {
@@ -107,5 +112,18 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
     );
   }
 
-  return null;
+  return (
+    <div className="p-6">
+      <p>
+        Failed to find a payment destination.{" "}
+        <button
+          type="button"
+          onClick={handleCreateVirtualAccount}
+          className="text-teal-500 dark:text-teal-400 hover:underline"
+        >
+          Try again
+        </button>
+      </p>
+    </div>
+  );
 };

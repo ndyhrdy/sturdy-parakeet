@@ -16,6 +16,8 @@ const RetailOutletDetails: FC<Props> = ({ roName }) => {
   const [instructions, setInstructions] = useState("");
 
   const [creatingPaymentCode, setCreatingPaymentCode] = useState(false);
+  const [attemptedCreatingPaymentCode, setAttemptedCreatingPaymentCode] =
+    useState(false);
 
   const { order } = usePaymentContext();
   const paymentCode = order?.paymentCodes?.[roName];
@@ -26,13 +28,16 @@ const RetailOutletDetails: FC<Props> = ({ roName }) => {
     }
 
     setCreatingPaymentCode(true);
+    setAttemptedCreatingPaymentCode(true);
     await api.post(`/payment/ro/${order?.id}`, { roName });
     setCreatingPaymentCode(false);
   }, [roName, creatingPaymentCode, paymentCode]);
 
   useEffect(() => {
-    handleCreatePaymentCode();
-  }, [handleCreatePaymentCode]);
+    if (!attemptedCreatingPaymentCode) {
+      handleCreatePaymentCode();
+    }
+  }, [handleCreatePaymentCode, attemptedCreatingPaymentCode]);
 
   useEffect(() => {
     if (creatingPaymentCode) {
@@ -107,5 +112,18 @@ const RetailOutletDetails: FC<Props> = ({ roName }) => {
     );
   }
 
-  return null;
+  return (
+    <div className="p-6">
+      <p>
+        Failed to find a payment destination.{" "}
+        <button
+          type="button"
+          onClick={handleCreatePaymentCode}
+          className="text-teal-500 dark:text-teal-400 hover:underline"
+        >
+          Try again
+        </button>
+      </p>
+    </div>
+  );
 };
