@@ -1,4 +1,4 @@
-import { isEmpty } from "lodash";
+import _ from "lodash";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import React from "react";
@@ -45,7 +45,7 @@ const OvoForm = () => {
         <ReactInputMask
           type="tel"
           name="phone"
-          mask={isEmpty(values.phone) ? "" : "+62 999 9999 9999"}
+          mask={_.isEmpty(values.phone) ? "" : "+62 999 9999 9999"}
           maskChar={null}
           value={values.phone}
           onChange={handleChange}

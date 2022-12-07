@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { upperCase } from "lodash";
+import _ from "lodash";
 import { createEwalletRedirectionCharge } from "../fx/createEwalletRedirectionCharge";
 import { createOvoCharge } from "../fx/createOvoCharge";
 import { getPendingOrder } from "../fx/getPendingOrder";
@@ -55,7 +55,7 @@ ewalletController.post(
   "/:orderId/redirection/:channel",
   async (req: Request, res: Response) => {
     const orderId = req.params.orderId;
-    const channel = upperCase(req.params.channel);
+    const channel = _.upperCase(req.params.channel);
 
     let order: PendingOrder;
     try {

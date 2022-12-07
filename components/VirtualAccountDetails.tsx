@@ -1,4 +1,4 @@
-import { isString, lowerCase } from "lodash";
+import _ from "lodash";
 import axios from "axios";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -46,11 +46,11 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
     const getInstructions = async () => {
       if (virtualAccount) {
         const { data } = await axios.get<string>(
-          `/instructions/${lowerCase(bankCode)}.md`
+          `/instructions/${_.lowerCase(bankCode)}.md`
         );
         let instructions = data;
         Object.entries(virtualAccount).forEach(([key, value]) => {
-          if (isString(value)) {
+          if (_.isString(value)) {
             instructions = instructions.replaceAll(`{{${key}}}`, value);
           }
         });

@@ -1,5 +1,5 @@
-import { isEmpty } from "lodash";
 import { useFormik } from "formik";
+import _ from "lodash";
 import InputMask from "react-input-mask";
 import React, { FC, useEffect } from "react";
 import { api } from "../helpers/api";
@@ -116,7 +116,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
         errors.cvv = "Invalid";
       }
 
-      if (!isEmpty(errors)) {
+      if (!_.isEmpty(errors)) {
         return errors;
       }
     },
@@ -136,7 +136,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
           <InputMask
             type="tel"
             name="cardNumber"
-            mask={isEmpty(values.cardNumber) ? "" : "9999 9999 9999 9999"}
+            mask={_.isEmpty(values.cardNumber) ? "" : "9999 9999 9999 9999"}
             maskChar={null}
             value={values.cardNumber}
             onChange={handleChange}
@@ -156,7 +156,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
           <InputMask
             type="tel"
             name="validThru"
-            mask={isEmpty(values.validThru) ? "" : "99/99"}
+            mask={_.isEmpty(values.validThru) ? "" : "99/99"}
             maskChar={null}
             value={values.validThru}
             onChange={handleChange}
@@ -175,7 +175,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
           <InputMask
             type="tel"
             name="cvv"
-            mask={isEmpty(values.cvv) ? "" : "999"}
+            mask={_.isEmpty(values.cvv) ? "" : "999"}
             maskChar={null}
             value={values.cvv}
             onChange={handleChange}

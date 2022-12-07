@@ -1,4 +1,4 @@
-import { lowerCase } from "lodash";
+import _ from "lodash";
 import React, { FC, useCallback, useMemo } from "react";
 import { api } from "../helpers/api";
 import { usePaymentContext } from "./Payment";
@@ -32,7 +32,7 @@ const EwalletRedirection: FC<Props> = ({ channelKey, channelLabel }) => {
     onLock();
     try {
       const { data } = await api.post<RedirectionActions>(
-        `/payment/ewallet/${order.id}/redirection/${lowerCase(channelKey)}`
+        `/payment/ewallet/${order.id}/redirection/${_.lowerCase(channelKey)}`
       );
       if (isMobileDevice && data.mobile_web_checkout_url) {
         window.location.href = data.mobile_web_checkout_url;

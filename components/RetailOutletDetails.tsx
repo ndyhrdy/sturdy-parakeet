@@ -1,4 +1,4 @@
-import { isString, lowerCase } from "lodash";
+import _ from "lodash";
 import axios from "axios";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -46,11 +46,11 @@ const RetailOutletDetails: FC<Props> = ({ roName }) => {
     const getInstructions = async () => {
       if (paymentCode) {
         const { data } = await axios.get<string>(
-          `/instructions/${lowerCase(roName)}.md`
+          `/instructions/${_.lowerCase(roName)}.md`
         );
         let instructions = data;
         Object.entries(paymentCode).forEach(([key, value]) => {
-          if (isString(value)) {
+          if (_.isString(value)) {
             instructions = instructions.replaceAll(`{{${key}}}`, value);
           }
         });
