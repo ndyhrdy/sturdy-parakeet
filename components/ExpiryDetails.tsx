@@ -7,7 +7,7 @@ type Props = {};
 
 const ExpiryDetails: FC<Props> = () => {
   return (
-    <div className="px-6 pt-24 lg:py-0">
+    <div className="px-6 pt-6 lg:pt-0">
       <h1 className="font-semibold text-3xl mb-2 text-center lg:text-left">
         Payment for this order has expired :(
       </h1>

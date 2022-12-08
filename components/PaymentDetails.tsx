@@ -37,7 +37,7 @@ const PaymentDetails: FC<Props> = ({ ...order }) => {
   }, [order]);
 
   return (
-    <div className="px-6 pt-24 lg:py-0">
+    <div className="px-6 pt-6 lg:pt-0">
       <h1 className="font-semibold text-3xl mb-2 text-center lg:text-left">
         Thank you for your payment!
       </h1>
