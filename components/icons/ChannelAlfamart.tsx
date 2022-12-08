@@ -1,10 +1,10 @@
 import React, { FC, SVGProps } from "react";
-import { useApp } from "../../renderer/PageShell";
+import { useAppContext } from "../../renderer/PageShell";
 
 export { ChannelAlfamart };
 
 const ChannelAlfamart: FC<SVGProps<SVGSVGElement>> = (props) => {
-  const { darkMode } = useApp();
+  const { darkMode } = useAppContext();
 
   return (
     <svg

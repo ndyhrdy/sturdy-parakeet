@@ -5,7 +5,7 @@ import { PageContextProvider } from "./usePageContext";
 import type { PageContext } from "./types";
 import "../styles/index.css";
 
-export { PageShell, useApp };
+export { PageShell, useAppContext };
 
 type AppContextValues = { darkMode: boolean };
 
@@ -13,7 +13,7 @@ const AppContext = createContext<AppContextValues>({
   darkMode: false,
 });
 
-const useApp = () => useContext(AppContext);
+const useAppContext = () => useContext(AppContext);
 
 const PageShell = ({
   children,
