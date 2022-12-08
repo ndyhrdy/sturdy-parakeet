@@ -50,7 +50,7 @@ const Ewallet: FC<EwalletProps> = ({ channel }) => {
         <div className="flex-1 flex items-center space-x-3">
           <div className="w-16 p-1 flex">
             <channel.icon
-              className={`max-h-6 ${
+              className={`max-h-6 w-16 ${
                 selected
                   ? "text-teal-500"
                   : "text-stone-600 dark:text-stone-400"
