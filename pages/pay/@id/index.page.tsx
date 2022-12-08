@@ -53,7 +53,7 @@ const Page: FC<PageProps<Props>> = ({ order: defaultOrder }) => {
                 }
               })()}
             </div>
-            <p className="text-stone-400 dark:text-stone-600 px-6">
+            <p className="text-stone-400 dark:text-stone-600 px-6 text-center lg:text-left">
               Order ID: {order.id}
             </p>
           </div>
