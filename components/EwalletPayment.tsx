@@ -6,10 +6,12 @@ import {
   AccordionItemHeader,
   useAccordionContext,
 } from "./Accordion";
+import { EwalletQrCode } from "./EwalletQrCode";
 import { EwalletRedirection } from "./EwalletRedirection";
 import { ChannelDana } from "./icons/ChannelDana";
 import { ChannelLinkaja } from "./icons/ChannelLinkaja";
 import { ChannelOvo } from "./icons/ChannelOvo";
+import { ChannelShopeepay } from "./icons/ChannelShopeepay";
 import { OvoPayment } from "./OvoPayment";
 import { usePaymentContext } from "./Payment";
 
@@ -18,6 +20,7 @@ export { EwalletPayment };
 const CHANNELS = [
   { key: "OVO", label: "OVO", icon: ChannelOvo },
   { key: "DANA", label: "Dana", icon: ChannelDana },
+  { key: "SHOPEEPAY", label: "ShopeePay", icon: ChannelShopeepay },
   { key: "LINKAJA", label: "LinkAja!", icon: ChannelLinkaja },
 ];
 
@@ -79,6 +82,8 @@ const Ewallet: FC<EwalletProps> = ({ channel }) => {
                   channelLabel={channel.label}
                 />
               );
+            case "SHOPEEPAY":
+              return <EwalletQrCode />;
             default:
               return null;
           }

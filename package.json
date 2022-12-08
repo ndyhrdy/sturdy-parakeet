@@ -36,6 +36,7 @@
     "react-dom": "^18.1.0",
     "react-input-mask": "^2.0.4",
     "react-markdown": "^8.0.4",
+    "react-qr-code": "^2.0.8",
     "sirv": "^2.0.2",
     "styled-components": "^5.3.6",
     "ts-node": "^10.7.0",
