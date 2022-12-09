@@ -127,9 +127,12 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
   }, []);
 
   return (
-    <form className="px-6" onSubmit={handleSubmit}>
+    <form
+      className="px-6 max-w-lg lg:max-w-none mx-auto"
+      onSubmit={handleSubmit}
+    >
       <div className="flex -mx-1 flex-wrap">
-        <div className="px-1 w-full lg:w-1/2 flex flex-col space-y-1 mb-4 lg:mb-0">
+        <div className="px-1 w-full lg:w-1/2 flex flex-col space-y-1 mb-4">
           <label htmlFor="cardNumber" className="text-sm dark:text-stone-400">
             Card Number
           </label>
@@ -149,7 +152,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
             <p className="text-xs text-red-500">{errors.cardNumber}</p>
           )}
         </div>
-        <div className="px-1 w-1/2 lg:w-1/4 flex flex-col space-y-1 mb-4 lg:mb-0">
+        <div className="px-1 w-1/2 lg:w-1/4 flex flex-col space-y-1 mb-4">
           <label htmlFor="validThru" className="text-sm dark:text-stone-400">
             Valid Thru
           </label>
@@ -168,7 +171,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
             <p className="text-xs text-red-500">{errors.validThru}</p>
           )}
         </div>
-        <div className="px-1 w-1/2 lg:w-1/4 flex flex-col space-y-1 mb-4 lg:mb-0">
+        <div className="px-1 w-1/2 lg:w-1/4 flex flex-col space-y-1 mb-4">
           <label htmlFor="cvv" className="text-sm dark:text-stone-400">
             Security Code
           </label>
@@ -187,7 +190,7 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
         </div>
       </div>
 
-      <div className="pt-4">
+      <div className="pt-4 flex justify-center lg:justify-start">
         <button
           type="submit"
           disabled={busy}

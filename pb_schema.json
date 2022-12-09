@@ -139,12 +139,21 @@
         "required": false,
         "unique": false,
         "options": {}
+      },
+      {
+        "id": "h2ctlb3r",
+        "name": "qrCode",
+        "type": "json",
+        "system": false,
+        "required": false,
+        "unique": false,
+        "options": {}
       }
     ],
     "listRule": null,
     "viewRule": "",
-    "createRule": "",
-    "updateRule": "",
+    "createRule": null,
+    "updateRule": null,
     "deleteRule": null,
     "options": {}
   }

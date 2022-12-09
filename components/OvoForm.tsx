@@ -37,7 +37,10 @@ const OvoForm = () => {
   });
 
   return (
-    <form className="p-6" onSubmit={handleSubmit}>
+    <form
+      className="p-6 max-w-lg lg:max-w-none mx-auto"
+      onSubmit={handleSubmit}
+    >
       <div className="w-full flex flex-col space-y-1">
         <label htmlFor="phone" className="text-sm dark:text-stone-400">
           OVO Registered Phone Number
@@ -57,7 +60,7 @@ const OvoForm = () => {
           <p className="text-xs text-red-500">{errors.phone}</p>
         )}
       </div>
-      <div className="mt-6">
+      <div className="mt-6 flex justify-center lg:justify-start">
         <button
           type="submit"
           disabled={locked}

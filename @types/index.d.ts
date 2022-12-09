@@ -13,6 +13,7 @@ type BaseOrder = PbRecord<{
   status: OrderStatus;
   virtualAccounts?: { [bankCode: string]: XenditVirtualAccountResponse };
   paymentCodes?: { [roName: string]: XenditPaymentCodeResponse };
+  qrCode?: XenditQrCodeResponse;
 }>;
 
 type OrderStatus = "PENDING" | "EXPIRED" | "PAID";
@@ -64,4 +65,21 @@ type XenditPaymentCodeResponse = {
   expected_amount: number;
   expiration_date: string;
   id: string;
+};
+
+type XenditQrCodeResponse = {
+  id: string;
+  reference_id: string;
+  business_id: string;
+  type: string;
+  currency: string;
+  amount: number;
+  channel_code: string;
+  status: string;
+  qr_string: string;
+  expires_at: string;
+  created: string;
+  updated: string;
+  basket: null | object;
+  metadata: null | object;
 };

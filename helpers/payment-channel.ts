@@ -12,6 +12,7 @@ const paymentChannels = [
   "OVO",
   "DANA",
   "LINKAJA",
+  "QR_CODE",
 ] as const;
 
 type PaymentChannel = typeof paymentChannels[number];
@@ -40,6 +41,8 @@ const getPaymentChannelLabel = (channel: PaymentChannel): string => {
       return "E-wallet – Dana";
     case "LINKAJA":
       return "E-wallet – LinkAja!";
+    case "QR_CODE":
+      return "QR Code";
     default:
       return "N/A";
   }

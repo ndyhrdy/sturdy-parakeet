@@ -12,6 +12,8 @@ import { CreditCardPayment } from "./CreditCardPayment";
 import { CreditCard } from "./icons/CreditCard";
 import { Ewallet } from "./icons/Ewallet";
 import { EwalletPayment } from "./EwalletPayment";
+import { QrCode } from "./icons/QrCode";
+import { QrCodePayment } from "./QrCodePayment";
 import { RetailOutlet } from "./icons/RetailOutlet";
 import { RetailOutletPayment } from "./RetailOutletPayment";
 import { VirtualAccountPayment } from "./VirtualAccountPayment";
@@ -23,6 +25,7 @@ const PAYMENT_METHODS = [
   { key: "VIRTUAL_ACCOUNT", icon: BankTransfer, label: "Bank Transfer" },
   { key: "OVER_THE_COUNTER", icon: RetailOutlet, label: "Retail Outlet" },
   { key: "EWALLET", icon: Ewallet, label: "E-wallet" },
+  { key: "QR_CODE", icon: QrCode, label: "QR Code" },
 ];
 
 type PaymentContextValues = {
@@ -106,9 +109,9 @@ const Payment: FC<Props> = ({ order }) => {
         selectedMethod,
       }}
     >
-      <div className="flex flex-col space-y-6">
+      <div className="flex flex-col relative">
         <PaymentMethodSelector />
-        <div>
+        <div className="pb-6">
           {(() => {
             switch (selectedMethod) {
               case "CARD":
@@ -119,6 +122,8 @@ const Payment: FC<Props> = ({ order }) => {
                 return <RetailOutletPayment />;
               case "EWALLET":
                 return <EwalletPayment />;
+              case "QR_CODE":
+                return <QrCodePayment />;
               default:
                 return null;
             }
@@ -167,14 +172,19 @@ const PaymentMethodSelector: FC = () => {
   }, []);
 
   return (
-    <div className="relative">
-      <div ref={scroller} className="overflow-x-hidden relative py-2">
-        <ul className="flex px-5">
+    <div className="flex relative justify-center py-6 lg:sticky top-0 z-10">
+      <div className="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-b from-stone-50 dark:from-stone-900 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-6 bg-stone-50 dark:bg-stone-900" />
+      <div
+        ref={scroller}
+        className="relative overflow-x-auto lg:overflow-x-hidden py-2 bg-stone-50 dark:bg-stone-900"
+      >
+        <ul className="flex justify-center space-x-2 w-fit px-6">
           {PAYMENT_METHODS.map((paymentMethod) => {
             const isSelected = selectedMethod === paymentMethod.key;
 
             return (
-              <li key={paymentMethod.key} className="px-1 last:pr-6">
+              <li key={paymentMethod.key}>
                 <button
                   type="button"
                   onClick={() => {
@@ -213,13 +223,14 @@ const PaymentMethodSelector: FC = () => {
         </ul>
       </div>
       {scrollableDistance.left > 0 && (
-        <div
-          className="absolute left-0 inset-y-0 w-24 bg-gradient-to-l from-transparent via-stone-50 dark:via-stone-900 to-stone-50 dark:to-stone-900 flex justify-center items-center"
-          style={{ opacity: scrollableDistance.left }}
-        >
+        <div className="absolute left-0 top-6 bottom-6 w-24 flex justify-center items-center">
+          <div
+            className="absolute inset-0 bg-gradient-to-l from-transparent via-stone-50 dark:via-stone-900 to-stone-50 dark:to-stone-900"
+            style={{ opacity: scrollableDistance.left }}
+          />
           <button
             type="button"
-            className="w-12 h-12 rounded-full bg-stone-50 dark:bg-stone-800 hover:bg-white hover:dark:bg-stone-700 shadow-lg flex justify-center items-center text-3xl dark:text-stone-500 hover:dark:text-stone-100 transition-colors"
+            className="relative w-12 h-12 rounded-full bg-stone-50 dark:bg-stone-800 hover:bg-white hover:dark:bg-stone-700 shadow-lg flex justify-center items-center text-3xl dark:text-stone-500 hover:dark:text-stone-100 transition-colors"
             onClick={() => {
               if (scroller.current) {
                 scroller.current.scroll({
@@ -236,13 +247,14 @@ const PaymentMethodSelector: FC = () => {
         </div>
       )}
       {scrollableDistance.right > 0 && (
-        <div
-          className="absolute right-0 inset-y-0 w-24 bg-gradient-to-r from-transparent via-stone-50 dark:via-stone-900 to-stone-50 dark:to-stone-900 flex justify-center items-center"
-          style={{ opacity: scrollableDistance.right }}
-        >
+        <div className="absolute right-0 top-6 bottom-6 w-24 flex justify-center items-center">
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-stone-50 dark:via-stone-900 to-stone-50 dark:to-stone-900"
+            style={{ opacity: scrollableDistance.right }}
+          />
           <button
             type="button"
-            className="w-12 h-12 rounded-full bg-stone-50 dark:bg-stone-800 hover:bg-white hover:dark:bg-stone-700 shadow-lg flex justify-center items-center text-3xl dark:text-stone-500 hover:dark:text-stone-100 transition-colors"
+            className="relative w-12 h-12 rounded-full bg-stone-50 dark:bg-stone-800 hover:bg-white hover:dark:bg-stone-700 shadow-lg flex justify-center items-center text-3xl dark:text-stone-500 hover:dark:text-stone-100 transition-colors"
             onClick={() => {
               if (scroller.current) {
                 scroller.current.scroll({

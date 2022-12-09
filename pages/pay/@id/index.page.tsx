@@ -35,9 +35,9 @@ const Page: FC<PageProps<Props>> = ({ order: defaultOrder }) => {
 
   return (
     <>
-      <div className="container mx-auto max-w-screen-xl border-l border-r border-dashed bg-stone-50 dark:border-stone-800 dark:bg-stone-900">
+      <div className="container mx-auto max-w-screen-xl lg:border-l lg:border-r border-dashed bg-stone-50 dark:border-stone-800 dark:bg-stone-900">
         <div className="flex flex-col lg:flex-row items-stretch min-h-screen">
-          <div className="lg:w-1/2 lg:border-r border-dashed dark:border-stone-800 flex flex-col justify-center mb-6 lg:mb-0">
+          <div className="lg:w-1/2 lg:border-r border-dashed dark:border-stone-800 flex flex-col justify-center mb-6 lg:mb-0 lg:h-screen lg:sticky top-0">
             <MerchantDetails />
             <div className="mb-6 lg:mb-12">
               {(() => {
@@ -57,7 +57,7 @@ const Page: FC<PageProps<Props>> = ({ order: defaultOrder }) => {
               Order ID: {order.id}
             </p>
           </div>
-          <div className="lg:w-1/2 flex flex-col justify-center py-12">
+          <div className="lg:w-1/2 flex flex-col justify-center">
             {order.status === "PENDING" && <Payment order={order} />}
           </div>
         </div>

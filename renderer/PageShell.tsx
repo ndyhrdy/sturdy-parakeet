@@ -70,7 +70,7 @@ const PageShell = ({
               onClick={() => {
                 setDarkMode(!darkMode);
               }}
-              className="fixed top-4 right-3 h-12 w-12 rounded-full shadow-md bg-stone-100 dark:bg-stone-800 hover:bg-white dark:hover:bg-stone-700 text-yellow-500 dark:text-stone-200 transition-colors"
+              className="fixed bottom-3 right-3 h-12 w-12 rounded-full shadow-md bg-stone-100 dark:bg-stone-800 hover:bg-white dark:hover:bg-stone-700 text-yellow-500 dark:text-stone-200 transition-colors"
             >
               {darkMode ? (
                 <Moon strokeWidth={2} size={24} />

@@ -20,7 +20,7 @@ const Page: FC = () => {
 
   return (
     <>
-      <div className="container mx-auto px-4 max-w-screen-md border-l border-r border-dashed dark:border-stone-800 bg-stone-50 dark:bg-stone-900">
+      <div className="container mx-auto px-4 max-w-screen-md lg:border-l lg:border-r border-dashed dark:border-stone-800 bg-stone-50 dark:bg-stone-900">
         <section className="flex flex-col justify-center items-center min-h-screen">
           <h1 className="font-bold text-6xl text-center tracking-tight">
             Xendit Checkout Demo

@@ -44,15 +44,19 @@ const PaymentDetails: FC<Props> = ({ ...order }) => {
       <p className="mb-6 text-center lg:text-left">
         We have successfully received your payment for this order.
       </p>
-      <h2 className="uppercase font-semibold text-sm text-stone-500 mb-3">
+      <h2 className="uppercase font-semibold text-sm text-center lg:text-start text-stone-500 mb-3">
         Payment Details
       </h2>
-      <ul className="space-y-2 mb-12">
+      <ul className="space-y-2 mb-12 max-w-lg lg:max-w-none mx-auto">
         {details.map(({ label, value }) => {
           return (
-            <li key={label} className="flex -mx-1">
-              <div className="px-1 w-1/2 lg:w-1/3">{label}</div>
-              <div className="px-1 w-1/2 lg:w-2/3">{value}</div>
+            <li key={label} className="flex -mx-1 flex-wrap">
+              <div className="px-1 w-full lg:w-1/3 text-center lg:text-start text-stone-600 dark:text-stone-500">
+                {label}
+              </div>
+              <div className="px-1 w-full lg:w-2/3 text-center lg:text-start">
+                {value}
+              </div>
             </li>
           );
         })}
