@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import _ from "lodash";
 import InputMask from "react-input-mask";
-import React, { FC, useEffect } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { api } from "../helpers/api";
 import { usePaymentContext } from "./Payment";
 
@@ -44,83 +44,93 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
     order,
   } = usePaymentContext();
 
-  const { errors, handleChange, handleSubmit, values } = useFormik<FormValues>({
-    initialValues: {
-      cardNumber: "",
-      validThru: "",
-      cvv: "",
-    },
-    onSubmit: async (values) => {
-      if (!order) {
-        return;
-      }
-
-      onLock();
-      type TokenizationResponse = {
-        id: string; // Token identifier
-        status: "IN_REVIEW" | "VERIFIED" | "FAILED"; // Token identifier status
-        failure_reason: string; // Token identifier failure reason
-        payer_authentication_url: string; // URL where your customer can perform 3DS verification
-      };
-
-      const { cardNumber, expiryMonth, expiryYear } = formatValues(values);
-
-      const handleVerified = async (token: string) => {
-        try {
-          await api.post(`/payment/charge/${order.id}`, {
-            token,
-          });
-        } catch (error) {
-          onError(error as string);
-          onReset();
-          return Promise.reject(error);
+  const { errors, handleChange, handleSubmit, setFieldValue, values } =
+    useFormik<FormValues>({
+      initialValues: {
+        cardNumber: "",
+        validThru: "",
+        cvv: "",
+      },
+      onSubmit: async (values) => {
+        if (!order) {
+          return;
         }
-        onSubmit();
-      };
 
-      window.Xendit.card.createToken(
-        {
-          amount: order.amount,
-          card_number: cardNumber,
-          card_exp_month: expiryMonth,
-          card_exp_year: expiryYear,
-          card_cvn: values.cvv,
-          is_multiple_use: false,
-          should_authenticate: true,
-        },
-        (err: any, response: TokenizationResponse) => {
-          if (err) {
-            onError();
-            return Promise.reject(err);
+        onLock();
+        type TokenizationResponse = {
+          id: string; // Token identifier
+          status: "IN_REVIEW" | "VERIFIED" | "FAILED"; // Token identifier status
+          failure_reason: string; // Token identifier failure reason
+          payer_authentication_url: string; // URL where your customer can perform 3DS verification
+        };
+
+        const { cardNumber, expiryMonth, expiryYear } = formatValues(values);
+
+        const handleVerified = async (token: string) => {
+          try {
+            await api.post(`/payment/charge/${order.id}`, {
+              token,
+            });
+          } catch (error) {
+            onError(error as string);
+            onReset();
+            return Promise.reject(error);
           }
-          if (response.status === "VERIFIED") {
-            return handleVerified(response.id);
+          onSubmit();
+        };
+
+        window.Xendit.card.createToken(
+          {
+            amount: order.amount,
+            card_number: cardNumber,
+            card_exp_month: expiryMonth,
+            card_exp_year: expiryYear,
+            card_cvn: values.cvv,
+            is_multiple_use: false,
+            should_authenticate: true,
+          },
+          (err: any, response: TokenizationResponse) => {
+            if (err) {
+              onError();
+              return Promise.reject(err);
+            }
+            if (response.status === "VERIFIED") {
+              return handleVerified(response.id);
+            }
+            if (response.status === "IN_REVIEW") {
+              return onReview(response.payer_authentication_url);
+            }
+            return onError(response.failure_reason);
           }
-          if (response.status === "IN_REVIEW") {
-            return onReview(response.payer_authentication_url);
-          }
-          return onError(response.failure_reason);
+        );
+      },
+      validate: (values) => {
+        let errors: any = {};
+        const { cardNumber, expiryMonth, expiryYear } = formatValues(values);
+        if (!window.Xendit.card.validateCardNumber(cardNumber)) {
+          errors.cardNumber = "Card number is not valid";
         }
-      );
-    },
-    validate: (values) => {
-      let errors: any = {};
-      const { cardNumber, expiryMonth, expiryYear } = formatValues(values);
-      if (!window.Xendit.card.validateCardNumber(cardNumber)) {
-        errors.cardNumber = "Card number is not valid";
-      }
-      if (!window.Xendit.card.validateExpiry(expiryMonth, expiryYear)) {
-        errors.validThru = "Invalid";
-      }
-      if (!window.Xendit.card.validateCvn(values.cvv)) {
-        errors.cvv = "Invalid";
-      }
+        if (!window.Xendit.card.validateExpiry(expiryMonth, expiryYear)) {
+          errors.validThru = "Invalid";
+        }
+        if (!window.Xendit.card.validateCvn(values.cvv)) {
+          errors.cvv = "Invalid";
+        }
 
-      if (!_.isEmpty(errors)) {
-        return errors;
-      }
-    },
-  });
+        if (!_.isEmpty(errors)) {
+          return errors;
+        }
+      },
+    });
+
+  const handleSimulate = useCallback(() => {
+    setFieldValue("cardNumber", "4000 0000 0000 1091");
+    setFieldValue("validThru", "12/34");
+    setFieldValue("cvv", "123");
+    setTimeout(() => {
+      handleSubmit();
+    }, 0);
+  }, [setFieldValue, handleSubmit]);
 
   useEffect(() => {
     window.Xendit.setPublishableKey(import.meta.env.VITE_XENDIT_PUBLIC_KEY);
@@ -131,6 +141,29 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
       className="px-6 max-w-lg lg:max-w-none mx-auto"
       onSubmit={handleSubmit}
     >
+      <div className="border-2 border-yellow-500 dark:border-yellow-700 bg-yellow-600 dark:bg-transparent rounded-xl p-3 pl-6 mb-6 text-white dark:text-yellow-100 flex items-start justify-between space-x-3">
+        <div>
+          Simulate payment using Credit Card.
+          <br />
+          <small className="opacity-75">
+            Note: Enter <code>"1234"</code> in the 3DS authentication page.
+          </small>
+        </div>
+        <div className="flex-shrink-0">
+          <button
+            type="button"
+            onClick={handleSimulate}
+            disabled={busy}
+            className={`rounded-lg h-10 px-4 text-lg ${
+              busy
+                ? "bg-stone-500 cursor-not-allowed text-white"
+                : "transition-colors text-yellow-900 bg-yellow-400 hover:bg-yellow-500"
+            }`}
+          >
+            Simulate &rarr;
+          </button>
+        </div>
+      </div>
       <div className="flex -mx-1 flex-wrap">
         <div className="px-1 w-full lg:w-1/2 flex flex-col space-y-1 mb-4">
           <label htmlFor="cardNumber" className="text-sm dark:text-stone-400">

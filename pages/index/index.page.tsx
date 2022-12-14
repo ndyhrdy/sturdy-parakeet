@@ -29,7 +29,7 @@ const Page: FC = () => {
           <p className="text-lg text-center mb-6">
             This is a checkout flow using Xendit to demonstrate usage of React
             on Vite with SSR. Complete stack includes Vite, React,
-            vite-plugin-ssr, Pocketbase, Tailwind CSS, Framer Motion.
+            vite-plugin-ssr, Pocketbase, Tailwind CSS.
           </p>
           <div className="flex space-x-2">
             <button
