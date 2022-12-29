@@ -4,6 +4,7 @@ import InputMask from "react-input-mask";
 import React, { FC, useCallback, useEffect } from "react";
 import { api } from "../helpers/api";
 import { usePaymentContext } from "./Payment";
+import { SimulateAlert } from "./SimulateAlert";
 
 export { CreditCardForm };
 
@@ -141,29 +142,12 @@ const CreditCardForm: FC<Props> = ({ onReset, onReview }) => {
       className="px-6 max-w-lg lg:max-w-none mx-auto"
       onSubmit={handleSubmit}
     >
-      <div className="border-2 border-yellow-500 dark:border-yellow-700 bg-yellow-600 dark:bg-transparent rounded-xl p-3 pl-6 mb-6 text-white dark:text-yellow-100 flex items-start justify-between space-x-3">
-        <div>
-          Simulate payment using Credit Card.
-          <br />
-          <small className="opacity-75">
-            Note: Enter <code>"1234"</code> in the 3DS authentication page.
-          </small>
-        </div>
-        <div className="flex-shrink-0">
-          <button
-            type="button"
-            onClick={handleSimulate}
-            disabled={busy}
-            className={`rounded-lg h-10 px-4 text-lg ${
-              busy
-                ? "bg-stone-500 cursor-not-allowed text-white"
-                : "transition-colors text-yellow-900 bg-yellow-400 hover:bg-yellow-500"
-            }`}
-          >
-            Simulate &rarr;
-          </button>
-        </div>
-      </div>
+      <SimulateAlert disabled={busy} onSimulate={handleSimulate}>
+        <p>Simulate payment using Credit Card.</p>
+        <small className="opacity-75">
+          Note: Enter <code>"1234"</code> in the 3DS authentication page.
+        </small>
+      </SimulateAlert>
       <div className="flex -mx-1 flex-wrap">
         <div className="px-1 w-full lg:w-1/2 flex flex-col space-y-1 mb-4">
           <label htmlFor="cardNumber" className="text-sm dark:text-stone-400">
