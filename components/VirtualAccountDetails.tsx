@@ -36,6 +36,15 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode, channelLabel }) => {
     setCreatingVirtualAccount(false);
   }, [bankCode, creatingVirtualAccount, virtualAccount]);
 
+  const handleSimulate = useCallback(async () => {
+    if (!virtualAccount) {
+      return;
+    }
+    await api.post(`/simulate/${order.id}`, {
+      paymentMethod: "va",
+    });
+  }, [order, virtualAccount]);
+
   useEffect(() => {
     if (!attemptedCreatingVirtualAccount) {
       handleCreateVirtualAccount();
@@ -79,7 +88,7 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode, channelLabel }) => {
 
   if (virtualAccount) {
     return (
-      <Simulatable onSimulate={() => {}}>
+      <Simulatable onSimulate={handleSimulate}>
         <div className="p-6 flex flex-col space-y-3">
           <SimulateAlert>Simulate payment using {channelLabel}</SimulateAlert>
           <div>
