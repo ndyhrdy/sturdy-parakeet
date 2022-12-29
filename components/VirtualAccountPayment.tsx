@@ -69,7 +69,10 @@ const VirtualAccount: FC<VirtualAccountProps> = ({ channel }) => {
         </div>
       </AccordionItemHeader>
       <AccordionItemContent>
-        <VirtualAccountDetails bankCode={channel.key} />
+        <VirtualAccountDetails
+          bankCode={channel.key}
+          channelLabel={channel.label}
+        />
       </AccordionItemContent>
     </AccordionItem>
   );

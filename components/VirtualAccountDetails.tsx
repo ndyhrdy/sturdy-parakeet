@@ -3,15 +3,18 @@ import axios from "axios";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { api } from "../helpers/api";
+import { Simulatable } from "./Simulatable";
+import { SimulateAlert } from "./SimulateAlert";
 import { usePaymentContext } from "./Payment";
 
 export { VirtualAccountDetails };
 
 type Props = {
   bankCode: string;
+  channelLabel: string;
 };
 
-const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
+const VirtualAccountDetails: FC<Props> = ({ bankCode, channelLabel }) => {
   const { onLock, onUnlock } = usePaymentContext();
   const [instructions, setInstructions] = useState("");
 
@@ -76,8 +79,9 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
 
   if (virtualAccount) {
     return (
-      <>
+      <Simulatable onSimulate={() => {}}>
         <div className="p-6 flex flex-col space-y-3">
+          <SimulateAlert>Simulate payment using {channelLabel}</SimulateAlert>
           <div>
             <h3 className="uppercase font-semibold text-sm text-stone-500 mb-1">
               Account Name
@@ -108,7 +112,7 @@ const VirtualAccountDetails: FC<Props> = ({ bankCode }) => {
         <ReactMarkdown className="px-6 pb-6 prose-sm prose-headings:font-semibold prose-code:bg-teal-100 dark:prose-code:bg-teal-800 prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-ol:list-decimal">
           {instructions}
         </ReactMarkdown>
-      </>
+      </Simulatable>
     );
   }
 
