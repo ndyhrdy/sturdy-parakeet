@@ -3,15 +3,18 @@ import axios from "axios";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { api } from "../helpers/api";
+import { Simulatable } from "./Simulatable";
+import { SimulateAlert } from "./SimulateAlert";
 import { usePaymentContext } from "./Payment";
 
 export { RetailOutletDetails };
 
 type Props = {
+  channelLabel: string;
   roName: string;
 };
 
-const RetailOutletDetails: FC<Props> = ({ roName }) => {
+const RetailOutletDetails: FC<Props> = ({ channelLabel, roName }) => {
   const { onLock, onUnlock } = usePaymentContext();
   const [instructions, setInstructions] = useState("");
 
@@ -32,6 +35,17 @@ const RetailOutletDetails: FC<Props> = ({ roName }) => {
     await api.post(`/payment/ro/${order?.id}`, { roName });
     setCreatingPaymentCode(false);
   }, [roName, creatingPaymentCode, paymentCode]);
+
+  const handleSimulate = useCallback(async () => {
+    if (!paymentCode) {
+      return;
+    }
+    await api.post(`/simulate/${order.id}`, {
+      paymentMethod: "ro",
+      channel: paymentCode.retail_outlet_name,
+      paymentCode: paymentCode.payment_code,
+    });
+  }, [order, paymentCode]);
 
   useEffect(() => {
     if (!attemptedCreatingPaymentCode) {
@@ -76,8 +90,9 @@ const RetailOutletDetails: FC<Props> = ({ roName }) => {
 
   if (paymentCode) {
     return (
-      <>
+      <Simulatable onSimulate={handleSimulate}>
         <div className="p-6 flex flex-col space-y-3">
+          <SimulateAlert>Simulate payment using {channelLabel}</SimulateAlert>
           <div>
             <h3 className="uppercase font-semibold text-sm text-stone-500 mb-1">
               Pay to Merchant
@@ -108,7 +123,7 @@ const RetailOutletDetails: FC<Props> = ({ roName }) => {
         <ReactMarkdown className="px-6 pb-6 prose-sm prose-headings:font-semibold prose-code:bg-teal-100 dark:prose-code:bg-teal-800 prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-ol:list-decimal">
           {instructions}
         </ReactMarkdown>
-      </>
+      </Simulatable>
     );
   }
 

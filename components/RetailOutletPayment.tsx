@@ -63,7 +63,10 @@ const RetailOutlet: FC<RetailOutletProps> = ({ channel }) => {
         </div>
       </AccordionItemHeader>
       <AccordionItemContent>
-        <RetailOutletDetails roName={channel.key} />
+        <RetailOutletDetails
+          channelLabel={channel.label}
+          roName={channel.key}
+        />
       </AccordionItemContent>
     </AccordionItem>
   );
